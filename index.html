@@ -3,809 +3,440 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سوق  اليمن - Sooq Yemen</title>
-    <meta name="description" content="أكبر منصة إعلانات مبوبة في اليمن - سيارات، عقارات، إلكترونيات، موبايلات والمزيد">
-    <meta name="theme-color" content="#2563EB">
+    <title>السوق المفتوح اليمن - OpenSooq Yemen</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #2563EB; --primary-dark: #1D4ED8; --primary-light: #DBEAFE;
-            --secondary: #10B981; --warning: #F59E0B; --danger: #DC2626;
-            --dark: #0F172A; --gray-900: #1E293B; --gray-600: #64748B;
-            --gray-300: #E2E8F0; --gray-100: #F8FAFC; --white: #FFFFFF;
-            --border: #E2E8F0; --shadow: 0 1px 3px rgba(0,0,0,0.1);
-            --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
-            --radius: 10px; --radius-full: 9999px;
-            --transition: all 0.3s ease;
-        }
+        :root { --primary:#2563EB; --primary-dark:#1D4ED8; --primary-light:#DBEAFE; --secondary:#10B981; --warning:#F59E0B; --danger:#DC2626; --dark:#0F172A; --gray-900:#1E293B; --gray-600:#64748B; --gray-300:#E2E8F0; --gray-100:#F8FAFC; --white:#FFFFFF; --border:#E2E8F0; --shadow:0 1px 3px rgba(0,0,0,0.1); --shadow-lg:0 10px 30px rgba(0,0,0,0.1); --radius:10px; --radius-full:9999px; }
         * { margin:0; padding:0; box-sizing:border-box; }
-        body {
-            font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
-            background: #F1F5F9; color: #1E293B; line-height:1.7;
-            direction:rtl; padding-bottom:70px;
-        }
+        body { font-family:'Cairo','Segoe UI',Tahoma,sans-serif; background:#F1F5F9; color:#1E293B; line-height:1.7; direction:rtl; padding-bottom:70px; }
         .container { max-width:1200px; margin:0 auto; padding:0 20px; }
-        a { text-decoration:none; color:inherit; }
-        ul { list-style:none; }
-        button { cursor:pointer; font-family:inherit; }
-        input,select,textarea { font-family:inherit; }
+        a { text-decoration:none; color:inherit; } ul { list-style:none; }
+        button { cursor:pointer; font-family:inherit; } input,select,textarea { font-family:inherit; }
 
         .top-bar { background:#0F172A; color:white; padding:8px 0; font-size:13px; }
         .top-bar .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
         .top-bar-left,.top-bar-right { display:flex; align-items:center; gap:12px; }
-        .lang-option { background:rgba(255,255,255,0.1); color:white; border:none; padding:5px 12px; border-radius:4px; cursor:pointer; font-size:12px; }
-        .lang-option.active { background:#2563EB; }
-        .currency-switcher select { background:rgba(255,255,255,0.1); color:white; border:none; padding:5px 10px; border-radius:4px; font-size:12px; }
-        .currency-switcher select option { background:#0F172A; }
-        .top-link { color:rgba(255,255,255,0.8); font-size:13px; }
-        .btn-register { background:#2563EB; color:white; padding:6px 14px; border-radius:20px; font-size:13px; font-weight:600; }
+        .lang-btn { background:rgba(255,255,255,0.1); color:white; border:none; padding:5px 12px; border-radius:4px; cursor:pointer; font-size:12px; }
+        .lang-btn.active { background:#2563EB; }
+        .currency-select { background:rgba(255,255,255,0.1); color:white; border:none; padding:5px 10px; border-radius:4px; font-size:12px; }
+        .currency-select option { background:#0F172A; }
 
         .site-header { background:white; padding:15px 0; box-shadow:0 1px 3px rgba(0,0,0,0.1); position:sticky; top:0; z-index:100; }
         .header-content { display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; }
         .brand-logo { display:flex; align-items:center; gap:10px; cursor:pointer; }
-        .logo-icon-wrapper { width:48px; height:48px; background:linear-gradient(135deg,#2563EB,#10B981); border-radius:10px; display:flex; align-items:center; justify-content:center; color:white; font-size:24px; }
-        .logo-main { font-size:22px; font-weight:900; color:#1E293B; }
+        .logo-icon { width:48px; height:48px; background:linear-gradient(135deg,#2563EB,#10B981); border-radius:10px; display:flex; align-items:center; justify-content:center; color:white; font-size:24px; }
+        .logo-text { font-size:22px; font-weight:900; color:#1E293B; }
         .logo-sub { font-size:11px; color:#94A3B8; }
 
-        .search-wrapper { flex:1; max-width:500px; position:relative; }
-        .search-input-group { display:flex; align-items:center; border:2px solid #E2E8F0; border-radius:25px; overflow:hidden; background:white; }
-        .search-input-group:focus-within { border-color:#2563EB; }
-        .search-icon { position:absolute; right:16px; color:#94A3B8; z-index:1; }
-        .search-input { flex:1; padding:13px 50px 13px 16px; border:none; outline:none; font-size:15px; }
-        .search-clear { position:absolute; left:10px; background:#E2E8F0; border:none; width:28px; height:28px; border-radius:50%; cursor:pointer; }
-        .search-suggestions { display:none; position:absolute; top:100%; left:0; right:0; background:white; border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,0.1); z-index:200; max-height:300px; overflow-y:auto; }
-        .search-suggestions.show { display:block; }
-        .suggestion-item { padding:12px 16px; cursor:pointer; display:flex; align-items:center; gap:10px; border-bottom:1px solid #F1F5F9; }
-        .suggestion-item:hover { background:#F8FAFC; }
+        .search-wrapper { flex:1; max-width:500px; }
+        .search-box { display:flex; align-items:center; border:2px solid #E2E8F0; border-radius:25px; overflow:hidden; background:white; }
+        .search-box:focus-within { border-color:#2563EB; }
+        .search-box input { flex:1; padding:13px 16px; border:none; outline:none; font-size:15px; }
 
         .btn { display:inline-flex; align-items:center; gap:8px; padding:11px 20px; border-radius:25px; font-size:14px; font-weight:700; border:none; transition:all 0.3s; white-space:nowrap; }
-        .btn-primary { background:#2563EB; color:white; }
-        .btn-primary:hover { background:#1D4ED8; }
+        .btn-primary { background:#2563EB; color:white; } .btn-primary:hover { background:#1D4ED8; }
         .btn-outline { background:transparent; border:2px solid #E2E8F0; color:#334155; }
-        .btn-outline:hover { border-color:#2563EB; color:#2563EB; }
-        .btn-favorites,.btn-notifications { position:relative; width:44px; height:44px; padding:0; justify-content:center; border-radius:50%; font-size:18px; }
-        .fav-count,.notif-count { position:absolute; top:-3px; left:-3px; background:#DC2626; color:white; font-size:10px; width:18px; height:18px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; }
+        .btn-fav { position:relative; width:44px; height:44px; padding:0; justify-content:center; border-radius:50%; font-size:18px; }
+        .fav-badge { position:absolute; top:-3px; left:-3px; background:#DC2626; color:white; font-size:10px; width:18px; height:18px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; }
 
-        .main-navigation { background:white; border-bottom:1px solid #E2E8F0; position:sticky; top:78px; z-index:99; }
-        .nav-wrapper { display:flex; align-items:center; }
-        .nav-list { display:flex; overflow-x:auto; scrollbar-width:none; gap:2px; flex:1; }
+        .main-nav { background:white; border-bottom:1px solid #E2E8F0; position:sticky; top:78px; z-index:99; }
+        .nav-list { display:flex; overflow-x:auto; scrollbar-width:none; gap:2px; }
         .nav-list::-webkit-scrollbar { display:none; }
-        .nav-link { display:flex; align-items:center; gap:6px; padding:14px 16px; font-size:14px; font-weight:600; color:#64748B; border-bottom:3px solid transparent; white-space:nowrap; }
+        .nav-link { display:flex; align-items:center; gap:6px; padding:14px 16px; font-size:14px; font-weight:600; color:#64748B; border-bottom:3px solid transparent; white-space:nowrap; transition:all 0.3s; }
         .nav-link:hover,.nav-link.active { color:#2563EB; background:#DBEAFE; border-bottom-color:#2563EB; }
-        .nav-badge { background:#F1F5F9; color:#64748B; font-size:10px; padding:2px 7px; border-radius:20px; }
-        .nav-scroll-btn { background:white; border:1px solid #E2E8F0; width:32px; height:32px; border-radius:50%; cursor:pointer; flex-shrink:0; }
 
-        .hero-section { background:linear-gradient(135deg,#EFF6FF,#FFFFFF); border-radius:15px; padding:40px; margin:30px 0; display:flex; align-items:center; gap:40px; }
-        .hero-title { font-size:36px; font-weight:900; margin-bottom:12px; }
-        .hero-subtitle { font-size:18px; color:#64748B; margin-bottom:25px; }
-        .hero-stats { display:flex; gap:30px; }
-        .stat-number { font-size:28px; font-weight:900; color:#2563EB; }
-        .stat-label { font-size:13px; color:#94A3B8; }
+        .hero { background:linear-gradient(135deg,#EFF6FF,#FFFFFF); border-radius:15px; padding:40px; margin:30px 0; text-align:center; }
+        .hero h1 { font-size:36px; font-weight:900; } .hero p { font-size:18px; color:#64748B; }
+        .hero-stats { display:flex; justify-content:center; gap:40px; margin-top:20px; flex-wrap:wrap; }
+        .hero-stats span { font-size:28px; font-weight:900; color:#2563EB; display:block; }
 
-        .section-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; }
-        .section-title { font-size:22px; font-weight:800; }
-        .cities-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:12px; margin:30px 0; }
-        .city-card { background:white; border:1px solid #E2E8F0; border-radius:10px; padding:20px; text-align:center; cursor:pointer; transition:all 0.3s; }
-        .city-card:hover { border-color:#2563EB; background:#DBEAFE; transform:translateY(-3px); }
-        .city-icon { font-size:30px; margin-bottom:8px; }
-        .city-name { font-weight:700; font-size:14px; }
-
-        .categories-full-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:12px; margin:30px 0; }
-        .category-full-card { background:white; border:1px solid #E2E8F0; border-radius:10px; padding:20px 12px; text-align:center; cursor:pointer; transition:all 0.3s; }
-        .category-full-card:hover { border-color:#2563EB; background:#DBEAFE; transform:translateY(-4px); }
-        .category-full-icon { font-size:36px; margin-bottom:10px; }
-        .category-full-name { font-weight:700; font-size:13px; }
-
-        .filters-bar { background:white; border:1px solid #E2E8F0; border-radius:12px; padding:20px; margin:30px 0; }
-        .filters-row { display:flex; gap:15px; flex-wrap:wrap; align-items:flex-end; }
-        .filter-group { flex:1; min-width:140px; }
-        .filter-group label { display:block; margin-bottom:6px; font-size:12px; font-weight:700; color:#64748B; }
-        .filter-group select,.filter-group input { width:100%; padding:10px 14px; border:1px solid #E2E8F0; border-radius:8px; font-size:14px; }
-        .price-range { display:flex; align-items:center; gap:8px; }
-        .price-range input { width:80px; text-align:center; }
+        .section-title { font-size:22px; font-weight:800; margin:30px 0 20px; }
+        .cat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:12px; margin:30px 0; }
+        .cat-card { background:white; border:1px solid #E2E8F0; border-radius:10px; padding:20px 12px; text-align:center; cursor:pointer; transition:all 0.3s; }
+        .cat-card:hover { border-color:#2563EB; background:#DBEAFE; transform:translateY(-4px); }
+        .cat-icon { font-size:36px; margin-bottom:10px; }
+        .cat-name { font-weight:700; font-size:13px; }
 
         .ads-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:20px; margin:30px 0; }
         .ad-card { background:white; border-radius:12px; overflow:hidden; border:1px solid #E2E8F0; transition:all 0.3s; position:relative; }
         .ad-card:hover { box-shadow:0 10px 30px rgba(0,0,0,0.1); transform:translateY(-5px); }
-        .ad-card-image { height:200px; background:#E2E8F0; display:flex; align-items:center; justify-content:center; font-size:70px; cursor:pointer; position:relative; }
-        .ad-card-badge { position:absolute; top:12px; right:12px; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:700; }
-        .badge-featured { background:#FEF3C7; color:#92400E; }
+        .ad-img { height:200px; display:flex; align-items:center; justify-content:center; font-size:70px; cursor:pointer; position:relative; }
+        .ad-badge { position:absolute; top:12px; right:12px; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:700; }
+        .badge-feat { background:#FEF3C7; color:#92400E; }
         .badge-sale { background:#2563EB; color:white; }
-        .badge-rent { background:#8B5CF6; color:white; }
-        .ad-card-fav { position:absolute; top:12px; left:12px; background:rgba(255,255,255,0.9); border:none; width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:18px; }
-        .ad-card-fav.active { color:#DC2626; }
-        .ad-card-body { padding:16px; }
-        .ad-card-price { font-size:22px; font-weight:900; color:#2563EB; margin-bottom:8px; }
-        .ad-card-title { font-size:15px; font-weight:700; margin-bottom:10px; cursor:pointer; }
-        .ad-card-meta { display:flex; justify-content:space-between; font-size:12px; color:#64748B; margin-bottom:10px; }
-        .ad-card-actions { display:flex; gap:8px; padding-top:12px; border-top:1px solid #E2E8F0; }
-        .ad-card-actions button { flex:1; padding:9px 0; border:1px solid #E2E8F0; border-radius:8px; background:white; cursor:pointer; font-size:12px; font-weight:600; }
-        .btn-contact { background:#2563EB!important; color:white!important; border-color:#2563EB!important; }
+        .ad-fav-btn { position:absolute; top:12px; left:12px; background:rgba(255,255,255,0.9); border:none; width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:18px; z-index:1; }
+        .ad-fav-btn.active { color:#DC2626; }
+        .ad-body { padding:16px; }
+        .ad-price { font-size:22px; font-weight:900; color:#2563EB; margin-bottom:8px; }
+        .ad-title { font-size:15px; font-weight:700; margin-bottom:10px; cursor:pointer; }
+        .ad-meta { display:flex; justify-content:space-between; font-size:12px; color:#64748B; }
+        .ad-actions { display:flex; gap:8px; padding-top:12px; border-top:1px solid #E2E8F0; margin-top:10px; }
+        .ad-actions button { flex:1; padding:9px 0; border:1px solid #E2E8F0; border-radius:8px; background:white; cursor:pointer; font-size:12px; font-weight:600; font-family:inherit; }
+        .ad-actions .btn-call { background:#2563EB!important; color:white!important; border-color:#2563EB!important; }
 
-        .loading-indicator { text-align:center; padding:40px; }
-        .spinner { width:40px; height:40px; border:3px solid #E2E8F0; border-top-color:#2563EB; border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 15px; }
-        @keyframes spin { to { transform:rotate(360deg); } }
-        .no-results { text-align:center; padding:60px 20px; }
-        .no-results-icon { font-size:60px; margin-bottom:15px; }
-
-        .pagination { display:flex; justify-content:center; gap:5px; margin-top:30px; }
-        .pagination button { width:40px; height:40px; border:1px solid #E2E8F0; background:white; border-radius:8px; cursor:pointer; font-weight:700; }
-        .pagination button.active { background:#2563EB; color:white; border-color:#2563EB; }
+        .pgn { display:flex; justify-content:center; gap:5px; margin-top:30px; }
+        .pgn button { width:40px; height:40px; border:1px solid #E2E8F0; background:white; border-radius:8px; cursor:pointer; font-weight:700; font-family:inherit; }
+        .pgn button.active { background:#2563EB; color:white; border-color:#2563EB; }
 
         .modal-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000; justify-content:center; align-items:center; padding:20px; }
         .modal-overlay.show { display:flex; }
-        .modal-container { background:white; border-radius:15px; width:100%; max-width:450px; max-height:85vh; overflow-y:auto; position:relative; animation:modalIn 0.3s ease; }
-        .modal-container.modal-lg { max-width:650px; }
-        .modal-container.modal-sm { max-width:350px; }
-        @keyframes modalIn { from { transform:translateY(-40px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+        .modal-box { background:white; border-radius:15px; width:100%; max-width:450px; max-height:85vh; overflow-y:auto; position:relative; animation:modalIn 0.3s ease; padding:30px; }
+        .modal-box.lg { max-width:650px; }
+        @keyframes modalIn { from{transform:translateY(-40px);opacity:0;} to{transform:translateY(0);opacity:1;} }
         .modal-close { position:absolute; top:15px; left:15px; background:#E2E8F0; border:none; width:32px; height:32px; border-radius:50%; font-size:18px; cursor:pointer; }
-        .modal-tabs { display:flex; border-bottom:2px solid #E2E8F0; }
-        .modal-tab { flex:1; padding:15px; border:none; background:transparent; font-size:15px; font-weight:700; cursor:pointer; color:#94A3B8; }
+        .modal-tabs { display:flex; border-bottom:2px solid #E2E8F0; margin-bottom:20px; }
+        .modal-tab { flex:1; padding:15px; border:none; background:transparent; font-size:15px; font-weight:700; cursor:pointer; color:#94A3B8; font-family:inherit; }
         .modal-tab.active { color:#2563EB; border-bottom:3px solid #2563EB; margin-bottom:-2px; }
-        .modal-form { display:none; padding:25px; }
-        .modal-form.active-form { display:block; }
-        .form-icon { text-align:center; font-size:50px; margin-bottom:10px; }
+        .modal-form { display:none; }
+        .modal-form.active { display:block; }
         .input-group { position:relative; margin-bottom:15px; }
         .input-group i { position:absolute; right:14px; top:50%; transform:translateY(-50%); color:#94A3B8; }
-        .input-group input,.input-group select { width:100%; padding:13px 45px 13px 16px; border:1px solid #E2E8F0; border-radius:8px; font-size:14px; }
-        .btn-block { width:100%; justify-content:center; padding:14px; font-size:16px; }
+        .input-group input,.input-group select,.input-group textarea { width:100%; padding:13px 45px 13px 16px; border:1px solid #E2E8F0; border-radius:8px; font-size:14px; font-family:inherit; }
+        .input-group textarea { padding:13px 16px; resize:vertical; min-height:80px; }
         .form-row { display:grid; grid-template-columns:1fr 1fr; gap:15px; }
-        .form-group { margin-bottom:18px; }
+        .form-group { margin-bottom:15px; }
         .form-group label { display:block; margin-bottom:6px; font-weight:700; font-size:13px; }
-        .form-group input,.form-group select,.form-group textarea { width:100%; padding:12px; border:1px solid #E2E8F0; border-radius:8px; font-size:14px; }
-        .form-steps { display:flex; margin-bottom:25px; border-bottom:2px solid #E2E8F0; }
-        .step { flex:1; text-align:center; padding:12px; font-size:13px; font-weight:600; color:#94A3B8; }
-        .step.active { color:#2563EB; }
-        .form-buttons { display:flex; gap:10px; margin-top:20px; }
+        .form-group input,.form-group select,.form-group textarea { width:100%; padding:12px; border:1px solid #E2E8F0; border-radius:8px; font-size:14px; font-family:inherit; }
 
-        .mobile-bottom-nav { display:none; position:fixed; bottom:0; left:0; right:0; background:white; border-top:1px solid #E2E8F0; z-index:100; padding:8px 0; justify-content:space-around; }
-        .bottom-nav-item { display:flex; flex-direction:column; align-items:center; gap:3px; color:#94A3B8; font-size:10px; font-weight:600; }
-        .bottom-nav-item.active { color:#2563EB; }
-        .bottom-nav-item i { font-size:22px; }
-        .add-btn-circle { width:50px; height:50px; background:linear-gradient(135deg,#2563EB,#10B981); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; margin-top:-20px; }
-        .bottom-badge { position:absolute; top:-5px; right:30%; background:#DC2626; color:white; width:16px; height:16px; border-radius:50%; font-size:9px; display:flex; align-items:center; justify-content:center; }
+        .mobile-nav { display:none; position:fixed; bottom:0; left:0; right:0; background:white; border-top:1px solid #E2E8F0; z-index:100; padding:8px 0; justify-content:space-around; }
+        .mobile-nav a { display:flex; flex-direction:column; align-items:center; gap:3px; color:#94A3B8; font-size:10px; font-weight:600; }
+        .mobile-nav a.active { color:#2563EB; }
+        .mobile-nav a i { font-size:22px; }
+        .mobile-nav .add-circle { width:50px; height:50px; background:linear-gradient(135deg,#2563EB,#10B981); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; margin-top:-20px; }
 
-        .site-footer { background:#0F172A; color:white; margin-top:60px; padding:50px 0 30px; }
+        footer { background:#0F172A; color:white; margin-top:60px; padding:40px 0 20px; }
         .footer-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:40px; }
-        .footer-logo { display:flex; align-items:center; gap:10px; font-size:22px; font-weight:900; margin-bottom:15px; }
-        .footer-logo i { color:#2563EB; }
-        .footer-col p { color:#CBD5E1; font-size:14px; }
-        .footer-col h3 { margin-bottom:18px; }
-        .footer-col ul li { margin-bottom:10px; }
-        .footer-col ul li a { color:#CBD5E1; font-size:14px; }
-        .footer-social { display:flex; gap:10px; margin-top:15px; }
-        .footer-social a { width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; font-size:18px; }
+        footer h3 { margin-bottom:15px; }
+        footer p,footer a { color:#CBD5E1; font-size:14px; }
+        footer ul li { margin-bottom:8px; }
         .footer-bottom { border-top:1px solid rgba(255,255,255,0.1); margin-top:30px; padding-top:20px; text-align:center; color:#94A3B8; font-size:13px; }
 
-        .back-to-top { position:fixed; bottom:90px; left:20px; width:44px; height:44px; background:#2563EB; color:white; border:none; border-radius:50%; font-size:18px; cursor:pointer; z-index:99; opacity:0; visibility:hidden; transition:all 0.3s; }
-        .back-to-top.visible { opacity:1; visibility:visible; }
+        .back-top { position:fixed; bottom:90px; left:20px; width:44px; height:44px; background:#2563EB; color:white; border:none; border-radius:50%; font-size:18px; cursor:pointer; z-index:99; opacity:0; visibility:hidden; transition:all 0.3s; }
+        .back-top.show { opacity:1; visibility:visible; }
 
-        .admin-panel-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#F1F5F9; z-index:2000; }
-        .admin-panel-overlay.show { display:flex; }
-        .admin-panel-container { display:flex; width:100%; height:100%; }
-        .admin-sidebar { width:250px; background:#0F172A; color:white; padding:25px; display:flex; flex-direction:column; gap:15px; }
-        .admin-menu-item { display:flex; align-items:center; gap:10px; padding:12px 15px; color:rgba(255,255,255,0.7); border-radius:8px; }
+        /* لوحة تحكم */
+        .admin-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#F1F5F9; z-index:2000; }
+        .admin-overlay.show { display:flex; }
+        .admin-container { display:flex; width:100%; height:100%; }
+        .admin-sidebar { width:220px; background:#0F172A; color:white; padding:20px; display:flex; flex-direction:column; gap:5px; overflow-y:auto; }
+        .admin-sidebar h3 { text-align:center; padding:15px 0; border-bottom:1px solid rgba(255,255,255,0.1); margin-bottom:10px; font-size:16px; }
+        .admin-menu-item { display:flex; align-items:center; gap:10px; padding:10px 12px; color:rgba(255,255,255,0.7); border-radius:8px; cursor:pointer; font-size:14px; transition:all 0.2s; }
         .admin-menu-item:hover,.admin-menu-item.active { background:rgba(255,255,255,0.1); color:white; }
-        .admin-content { flex:1; padding:30px; overflow-y:auto; }
-        .admin-stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:20px; margin-bottom:30px; }
-        .admin-stat-card { background:white; border-radius:12px; padding:25px; text-align:center; box-shadow:0 1px 3px rgba(0,0,0,0.1); }
-        .admin-stat-value { font-size:32px; font-weight:900; color:#2563EB; }
-        .admin-stat-label { font-size:14px; color:#64748B; }
-        .admin-table { width:100%; border-collapse:collapse; background:white; border-radius:10px; overflow:hidden; }
-        .admin-table th { background:#F8FAFC; padding:12px 15px; text-align:right; font-size:13px; color:#64748B; }
-        .admin-table td { padding:12px 15px; border-bottom:1px solid #F1F5F9; font-size:14px; }
-        .btn-danger { background:#DC2626; color:white; }
-        .btn-sm { padding:5px 10px; border:none; border-radius:4px; cursor:pointer; margin:2px; font-size:12px; }
-        .toast-message { position:fixed; top:20px; left:50%; transform:translateX(-50%); color:white; padding:14px 28px; border-radius:30px; z-index:3000; font-weight:700; font-size:15px; box-shadow:0 8px 25px rgba(0,0,0,0.2); animation:toastIn 0.3s ease; }
-        @keyframes toastIn { from { transform:translateX(-50%) translateY(-100px); opacity:0; } to { transform:translateX(-50%) translateY(0); opacity:1; } }
+        .admin-main { flex:1; padding:30px; overflow-y:auto; }
+        .admin-card { background:white; border-radius:12px; padding:25px; box-shadow:0 1px 3px rgba(0,0,0,0.05); margin-bottom:25px; }
+        .admin-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:15px; margin-bottom:30px; }
+        .admin-stat { background:white; border-radius:12px; padding:20px; text-align:center; box-shadow:0 1px 3px rgba(0,0,0,0.05); border-left:4px solid #2563EB; }
+        .admin-stat .val { font-size:28px; font-weight:900; color:#2563EB; }
+        .admin-stat .lbl { font-size:13px; color:#64748B; }
+        .admin-table { width:100%; border-collapse:collapse; }
+        .admin-table th { background:#F8FAFC; padding:10px 12px; text-align:right; font-size:13px; color:#64748B; }
+        .admin-table td { padding:10px 12px; border-bottom:1px solid #F1F5F9; font-size:13px; }
+        .btn-sm { padding:6px 12px; border:none; border-radius:6px; cursor:pointer; font-size:12px; font-weight:600; color:white; font-family:inherit; margin:2px; }
+        .toast { position:fixed; top:20px; left:50%; transform:translateX(-50%); background:#10B981; color:white; padding:12px 24px; border-radius:30px; z-index:3000; font-weight:700; font-size:14px; animation:toastIn 0.3s ease; }
+        @keyframes toastIn { from{transform:translateX(-50%) translateY(-100px);opacity:0;} to{transform:translateX(-50%) translateY(0);opacity:1;} }
 
-        @media (max-width:768px) {
-            .top-bar { display:none; }
-            .header-content { flex-direction:column; }
-            .search-wrapper { max-width:100%; }
-            .hero-section { flex-direction:column; padding:25px; }
-            .hero-title { font-size:24px; }
-            .hero-stats { flex-wrap:wrap; gap:15px; }
-            .footer-grid { grid-template-columns:1fr; }
-            .filters-row { flex-direction:column; }
-            .form-row { grid-template-columns:1fr; }
-            .ads-grid { grid-template-columns:1fr; }
-            .mobile-bottom-nav { display:flex; }
-            .categories-full-grid { grid-template-columns:repeat(3,1fr); }
-            .admin-panel-container { flex-direction:column; }
-            .admin-sidebar { width:100%; flex-direction:row; overflow-x:auto; padding:10px; }
-            .admin-menu { display:flex; gap:5px; }
-        }
-        @media (max-width:480px) {
-            .categories-full-grid { grid-template-columns:repeat(2,1fr); }
-            .cities-grid { grid-template-columns:repeat(2,1fr); }
+        @media(max-width:768px){
+            .top-bar{display:none;} .header-content{flex-direction:column;} .footer-grid{grid-template-columns:1fr;}
+            .form-row{grid-template-columns:1fr;} .ads-grid{grid-template-columns:1fr;} .mobile-nav{display:flex;}
+            .cat-grid{grid-template-columns:repeat(3,1fr);} .admin-container{flex-direction:column;}
+            .admin-sidebar{width:100%;flex-direction:row;overflow-x:auto;padding:10px;}
+            .admin-sidebar h3{display:none;} .admin-menu-item{white-space:nowrap;font-size:12px;}
         }
     </style>
 </head>
 <body>
 
-<!-- شريط علوي -->
-<div class="top-bar">
-    <div class="container">
-        <div class="top-bar-left">
-            <button class="lang-option active" onclick="switchLang('ar')">عربي</button>
-            <button class="lang-option" onclick="switchLang('en')">English</button>
-            <select id="mainCurrency" onchange="changeCurrency()" style="background:rgba(255,255,255,0.1);color:white;border:none;padding:5px 10px;border-radius:4px;">
-                <option value="YER">ريال يمني</option><option value="USD">دولار</option><option value="SAR">ريال سعودي</option>
-            </select>
-        </div>
-        <div class="top-bar-right">
-            <a href="#" class="top-link" onclick="showAuthModal('login')">دخول</a>
-            <a href="#" class="btn-register" onclick="showAuthModal('register')">حساب جديد</a>
-        </div>
-    </div>
-</div>
+<!-- Top Bar -->
+<div class="top-bar"><div class="container"><div class="top-bar-left"><button class="lang-btn active">عربي</button><button class="lang-btn">English</button><select class="currency-select" onchange="changeCur()"><option value="YER">ريال يمني</option><option value="USD">دولار</option><option value="SAR">ريال سعودي</option></select></div><div class="top-bar-right"><a href="#" onclick="showAuth('login')">دخول</a><a href="#" onclick="showAuth('reg')" style="background:#2563EB;color:white;padding:6px 14px;border-radius:20px;">حساب جديد</a></div></div></div>
 
-<!-- هيدر -->
-<header class="site-header">
-    <div class="container">
-        <div class="header-content">
-            <div class="brand-logo" id="brandLogo" onclick="handleLogoClick()">
-                <div class="logo-icon-wrapper"><i class="fas fa-store-alt"></i></div>
-                <div>
-                    <div class="logo-main"> سوق اليمن  </div>
-                    <div class="logo-sub">OpenSooq Yemen</div>
-                </div>
-            </div>
-            <div class="search-wrapper">
-                <div class="search-input-group">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" id="globalSearch" class="search-input" placeholder="ابحث عن أي شيء..." oninput="handleSearchInput(this.value)" onkeydown="if(event.key==='Enter')performSearch()">
-                    <button class="search-clear" id="searchClear" onclick="clearSearch()" style="display:none">✕</button>
-                </div>
-                <div class="search-suggestions" id="searchSuggestions"></div>
-            </div>
-            <div style="display:flex;gap:10px;">
-                <button class="btn btn-primary" onclick="showAddAdModal()"><i class="fas fa-plus-circle"></i> أضف إعلاناً</button>
-                <button class="btn btn-outline btn-favorites" onclick="showPage('favorites')"><i class="fas fa-heart"></i><span class="fav-count" id="favCountBadge">0</span></button>
-            </div>
-        </div>
-    </div>
-</header>
+<!-- Header -->
+<header class="site-header"><div class="container"><div class="header-content">
+<div class="brand-logo" onclick="logoClick()"><div class="logo-icon"><i class="fas fa-store-alt"></i></div><div><div class="logo-text" id="siteName">السوق المفتوح</div><div class="logo-sub">OpenSooq Yemen</div></div></div>
+<div class="search-wrapper"><div class="search-box"><input type="text" id="searchInput" placeholder="ابحث عن أي شيء..." onkeydown="if(event.key==='Enter')doSearch()"></div></div>
+<div style="display:flex;gap:10px;"><button class="btn btn-primary" onclick="showAddAd()"><i class="fas fa-plus-circle"></i> أضف إعلاناً</button><button class="btn btn-outline btn-fav" onclick="showPage('fav')"><i class="fas fa-heart"></i><span class="fav-badge" id="favBadge">0</span></button></div>
+</div></div></header>
 
-<!-- قائمة التنقل -->
-<nav class="main-navigation">
-    <div class="container">
-        <div class="nav-wrapper">
-            <ul class="nav-list" id="navList">
-                <li><a href="#" class="nav-link active" onclick="filterClear()">🏠 الرئيسية</a></li>
-                <li><a href="#" class="nav-link" onclick="filterByCat(1)">🚗 سيارات</a></li>
-                <li><a href="#" class="nav-link" onclick="filterByCat(2)">🏠 عقارات</a></li>
-                <li><a href="#" class="nav-link" onclick="filterByCat(3)">📱 موبايلات</a></li>
-                <li><a href="#" class="nav-link" onclick="filterByCat(4)">💻 إلكترونيات</a></li>
-                <li><a href="#" class="nav-link" onclick="filterByCat(5)">🪑 أثاث</a></li>
-                <li><a href="#" class="nav-link" onclick="filterByCat(7)">💼 وظائف</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<!-- Navigation -->
+<nav class="main-nav"><div class="container"><ul class="nav-list" id="navList"></ul></div></nav>
 
-<!-- المحتوى الرئيسي -->
+<!-- Main Content -->
 <main class="container" style="margin-top:20px;">
-    <div id="homePage">
-        <div class="hero-section">
-            <div style="flex:1;">
-                <h1 class="hero-title">أكبر سوق إلكتروني في اليمن</h1>
-                <p class="hero-subtitle">بيع واشتري كل ما تحتاجه بسهولة وأمان</p>
-                <div class="hero-stats">
-                    <div><span class="stat-number">+10,000</span><br><span class="stat-label">إعلان</span></div>
-                    <div><span class="stat-number">+50,000</span><br><span class="stat-label">مستخدم</span></div>
-                    <div><span class="stat-number">20</span><br><span class="stat-label">مدينة</span></div>
-                </div>
-            </div>
-        </div>
-        <h2>📂 التصنيفات</h2>
-        <div class="categories-full-grid" id="catGrid"></div>
-        <div class="filters-bar">
-            <div class="filters-row">
-                <div class="filter-group">
-                    <label>المدينة</label>
-                    <select id="fCity" onchange="applyFilters()"><option value="">كل المدن</option></select>
-                </div>
-                <div class="filter-group">
-                    <label>الترتيب</label>
-                    <select id="fSort" onchange="applyFilters()">
-                        <option value="new">الأحدث</option><option value="cheap">الأرخص</option><option value="exp">الأغلى</option>
-                    </select>
-                </div>
-                <button class="btn btn-outline" id="btnFeat" onclick="toggleFeat()">⭐ المميزة</button>
-            </div>
-        </div>
-        <h2>🆕 أحدث الإعلانات</h2>
-        <div class="ads-grid" id="adsGrid">جاري التحميل...</div>
-        <div class="pagination" id="pgn"></div>
-    </div>
-    <div id="detailsPage" style="display:none;"></div>
-    <div id="favPage" style="display:none;"></div>
+<div id="homePage"><div class="hero"><h1>أكبر سوق إلكتروني في اليمن</h1><p>بيع واشتري كل ما تحتاجه بسهولة وأمان</p><div class="hero-stats"><div><span id="heroAds">0</span>إعلان</div><div><span>+50,000</span>مستخدم</div><div><span>20</span>مدينة</div></div></div><h2 class="section-title">📂 التصنيفات</h2><div class="cat-grid" id="catGrid"></div><h2 class="section-title">🆕 أحدث الإعلانات</h2><div class="ads-grid" id="homeAds">⏳ جاري التحميل...</div><div class="pgn" id="homePgn"></div></div>
+<div id="catPage" style="display:none;"></div>
+<div id="detPage" style="display:none;"></div>
+<div id="favPage" style="display:none;"></div>
 </main>
 
-<!-- شريط سفلي -->
-<nav class="mobile-bottom-nav">
-    <a href="#" class="bottom-nav-item active" onclick="showPage('home')"><i class="fas fa-home"></i><span>الرئيسية</span></a>
-    <a href="#" class="bottom-nav-item" onclick="document.querySelector('#catGrid').scrollIntoView({behavior:'smooth'})"><i class="fas fa-th-large"></i><span>أقسام</span></a>
-    <a href="#" class="bottom-nav-item" onclick="showAddAdModal()"><div class="add-btn-circle"><i class="fas fa-plus"></i></div><span>إضافة</span></a>
-    <a href="#" class="bottom-nav-item" onclick="showPage('favorites')"><i class="fas fa-heart"></i><span>مفضلة</span></a>
-    <a href="#" class="bottom-nav-item" onclick="showAuthModal('login')"><i class="fas fa-user"></i><span>ملفي</span></a>
-</nav>
-<!-- مودال الدخول -->
-<div id="authModal" class="modal-overlay">
-    <div class="modal-container">
-        <div class="modal-tabs">
-            <button class="modal-tab active" data-tab="login">دخول</button>
-            <button class="modal-tab" data-tab="register">حساب جديد</button>
-        </div>
-        <button class="modal-close" onclick="closeModal('authModal')">×</button>
-        <form class="modal-form active-form" onsubmit="handleLogin(event)">
-            <div class="form-icon">👤</div>
-            <h3 style="text-align:center">تسجيل الدخول</h3>
-            <div class="input-group"><i class="fas fa-phone"></i><input type="tel" placeholder="رقم الهاتف" required></div>
-            <div class="input-group"><i class="fas fa-lock"></i><input type="password" placeholder="كلمة المرور" required></div>
-            <button type="submit" class="btn btn-primary btn-block">دخول</button>
-        </form>
-        <form class="modal-form" onsubmit="handleRegister(event)">
-            <div class="form-icon">📝</div>
-            <h3 style="text-align:center">إنشاء حساب</h3>
-            <div class="input-group"><i class="fas fa-user"></i><input type="text" placeholder="الاسم" required></div>
-            <div class="input-group"><i class="fas fa-phone"></i><input type="tel" placeholder="الهاتف" required></div>
-            <div class="input-group"><i class="fas fa-lock"></i><input type="password" placeholder="كلمة المرور" required></div>
-            <button type="submit" class="btn btn-primary btn-block">إنشاء حساب</button>
-        </form>
-    </div>
-</div>
+<!-- Mobile Nav -->
+<nav class="mobile-nav"><a href="#" onclick="showPage('home')"><i class="fas fa-home"></i><span>الرئيسية</span></a><a href="#" onclick="document.getElementById('catGrid').scrollIntoView({behavior:'smooth'})"><i class="fas fa-th-large"></i><span>أقسام</span></a><a href="#" onclick="showAddAd()"><div class="add-circle"><i class="fas fa-plus"></i></div><span>إضافة</span></a><a href="#" onclick="showPage('fav')"><i class="fas fa-heart"></i><span>مفضلة</span></a><a href="#" onclick="showAuth('login')"><i class="fas fa-user"></i><span>ملفي</span></a></nav>
 
-<!-- مودال إضافة إعلان -->
-<div id="addAdModal" class="modal-overlay">
-    <div class="modal-container modal-lg">
-        <button class="modal-close" onclick="closeModal('addAdModal')">×</button>
-        <h2 style="text-align:center;padding:20px;">📢 أضف إعلانك</h2>
-        <form onsubmit="addNewAd(event)" style="padding:0 25px 25px;">
-            <div class="form-row">
-                <div class="form-group"><label>العنوان (عربي)*</label><input type="text" id="adTitleAr" required></div>
-                <div class="form-group"><label>العنوان (إنجليزي)</label><input type="text" id="adTitleEn"></div>
-            </div>
-            <div class="form-row">
-                <div class="form-group"><label>التصنيف*</label><select id="adCat" required></select></div>
-                <div class="form-group"><label>المدينة*</label><select id="adCity" required></select></div>
-            </div>
-            <div class="form-row">
-                <div class="form-group"><label>السعر*</label><input type="number" id="adPrice" required></div>
-                <div class="form-group"><label>العملة</label><select id="adCur"><option value="YER">ريال يمني</option><option value="USD">دولار</option><option value="SAR">ريال سعودي</option></select></div>
-            </div>
-            <div class="form-group"><label>رقم الهاتف*</label><input type="tel" id="adPhone" required></div>
-            <div class="form-group"><label>الوصف</label><textarea id="adDesc" rows="3"></textarea></div>
-            <button type="submit" class="btn btn-primary btn-block">🚀 نشر الإعلان</button>
-        </form>
-    </div>
-</div>
+<!-- Auth Modal -->
+<div id="authModal" class="modal-overlay"><div class="modal-box"><div class="modal-tabs"><button class="modal-tab active" data-t="login">دخول</button><button class="modal-tab" data-t="reg">حساب جديد</button></div><button class="modal-close" onclick="closeMod('authModal')">×</button><form class="modal-form active" onsubmit="handleLogin(event)"><div class="form-icon" style="text-align:center;font-size:50px;">👤</div><h3 style="text-align:center">تسجيل الدخول</h3><div class="input-group"><i class="fas fa-phone"></i><input type="tel" placeholder="رقم الهاتف" required></div><div class="input-group"><i class="fas fa-lock"></i><input type="password" placeholder="كلمة المرور" required></div><button class="btn btn-primary" style="width:100%;">دخول</button></form><form class="modal-form" onsubmit="handleRegister(event)"><div class="form-icon" style="text-align:center;font-size:50px;">📝</div><h3 style="text-align:center">إنشاء حساب</h3><div class="input-group"><i class="fas fa-user"></i><input type="text" placeholder="الاسم" required></div><div class="input-group"><i class="fas fa-phone"></i><input type="tel" placeholder="الهاتف" required></div><div class="input-group"><i class="fas fa-lock"></i><input type="password" placeholder="كلمة المرور" required></div><button class="btn btn-primary" style="width:100%;">إنشاء حساب</button></form></div></div>
 
-<!-- مودال الرمز السري -->
-<div id="secretModal" class="modal-overlay">
-    <div class="modal-container modal-sm">
-        <button class="modal-close" onclick="closeModal('secretModal')">×</button>
-        <h2 style="text-align:center">🔐 لوحة التحكم</h2>
-        <p style="text-align:center;margin:15px 0;">أدخل الرمز السري</p>
-        <div class="input-group"><i class="fas fa-key"></i><input type="password" id="secretCode" placeholder="الرمز السري"></div>
-        <button class="btn btn-primary btn-block" onclick="checkSecret()">دخول</button>
-    </div>
-</div>
+<!-- Add Ad Modal -->
+<div id="addAdModal" class="modal-overlay"><div class="modal-box lg"><button class="modal-close" onclick="closeMod('addAdModal')">×</button><h2 style="text-align:center;margin-bottom:20px;">📢 أضف إعلانك</h2><form onsubmit="addAd(event)"><div class="form-row"><div class="form-group"><label>العنوان*</label><input type="text" id="adTitle" required></div><div class="form-group"><label>العنوان إنجليزي</label><input type="text" id="adTitleEn"></div></div><div class="form-row"><div class="form-group"><label>التصنيف*</label><select id="adCat" required></select></div><div class="form-group"><label>المدينة*</label><select id="adCity" required></select></div></div><div class="form-row"><div class="form-group"><label>السعر*</label><input type="number" id="adPrice" required></div><div class="form-group"><label>العملة</label><select id="adCur"><option value="YER">ريال يمني</option><option value="USD">دولار</option><option value="SAR">ريال سعودي</option></select></div></div><div class="form-group"><label>الهاتف*</label><input type="tel" id="adPhone" required></div><div class="form-group"><label>الوصف</label><textarea id="adDesc" rows="3"></textarea></div><div class="form-group"><label>رابط الصورة</label><input type="text" id="adImg" placeholder="رابط صورة للإعلان (اختياري)"></div><button class="btn btn-primary" style="width:100%;">🚀 نشر</button></form></div></div>
 
-<!-- لوحة التحكم -->
-<div id="adminPanel" class="admin-panel-overlay" style="display:none;">
-    <div class="admin-panel-container">
-        <div class="admin-sidebar">
-            <h3>🛡️ لوحة التحكم</h3>
-            <a href="#" class="admin-menu-item active" onclick="loadAdminSection('dashboard')">📊 الإحصائيات</a>
-            <a href="#" class="admin-menu-item" onclick="loadAdminSection('ads')">📋 الإعلانات</a>
-            <a href="#" class="admin-menu-item" onclick="loadAdminSection('users')">👥 المستخدمين</a>
-            <a href="#" class="admin-menu-item" onclick="loadAdminSection('settings')">⚙️ الإعدادات</a>
-            <button class="btn btn-danger btn-block" onclick="closeAdmin()" style="margin-top:auto;">إغلاق</button>
-        </div>
-        <div class="admin-content" id="adminContent"></div>
-    </div>
-</div>
+<!-- Secret Modal -->
+<div id="secretModal" class="modal-overlay"><div class="modal-box" style="max-width:350px;"><button class="modal-close" onclick="closeMod('secretModal')">×</button><h2 style="text-align:center">🔐 لوحة التحكم</h2><p style="text-align:center;margin:15px 0;">أدخل كلمة المرور</p><div class="input-group"><i class="fas fa-key"></i><input type="password" id="secretCode" placeholder="كلمة المرور"></div><button class="btn btn-primary" style="width:100%;" onclick="checkSecret()">دخول</button></div></div>
 
-<!-- فوتر -->
-<footer class="site-footer">
-    <div class="container">
-        <div class="footer-grid">
-            <div class="footer-col">
-                <div class="footer-logo"><i class="fas fa-store-alt"></i> السوق المفتوح</div>
-                <p>أكبر منصة إعلانات مبوبة في اليمن</p>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h3>أقسام</h3>
-                <ul><li><a href="#">🚗 سيارات</a></li><li><a href="#">🏠 عقارات</a></li><li><a href="#">📱 موبايلات</a></li></ul>
-            </div>
-            <div class="footer-col">
-                <h3>مدن</h3>
-                <ul><li><a href="#">صنعاء</a></li><li><a href="#">عدن</a></li><li><a href="#">تعز</a></li></ul>
-            </div>
-            <div class="footer-col">
-                <h3>روابط</h3>
-                <ul><li><a href="#">حول الموقع</a></li><li><a href="#">الخصوصية</a></li><li><a href="#">اتصل بنا</a></li></ul>
-            </div>
-        </div>
-        <div class="footer-bottom"><p>© 2024 السوق المفتوح اليمن 🇾🇪</p></div>
-    </div>
-</footer>
+<!-- Admin Panel -->
+<div id="adminPanel" class="admin-overlay"><div class="admin-container">
+<div class="admin-sidebar"><h3>🛡️ التحكم</h3><a class="admin-menu-item active" onclick="loadAdmin('dash')">📊 الإحصائيات</a><a class="admin-menu-item" onclick="loadAdmin('ads')">📋 الإعلانات</a><a class="admin-menu-item" onclick="loadAdmin('add')">📢 إضافة إعلان</a><a class="admin-menu-item" onclick="loadAdmin('cats')">📂 التصنيفات</a><a class="admin-menu-item" onclick="loadAdmin('users')">👥 المستخدمين</a><a class="admin-menu-item" onclick="loadAdmin('appear')">🎨 المظهر</a><a class="admin-menu-item" onclick="loadAdmin('settings')">⚙️ إعدادات</a><button class="btn btn-danger" style="width:100%;margin-top:auto;" onclick="closeAdmin()">🚪 خروج</button></div>
+<div class="admin-main" id="adminMain"></div>
+</div></div>
 
-<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0})">↑</button>
+<!-- Footer -->
+<footer><div class="container"><div class="footer-grid"><div><h3>🏪 السوق المفتوح</h3><p>أكبر منصة إعلانات مبوبة في اليمن</p></div><div><h3>أقسام</h3><ul><li><a href="#" onclick="showCatPage(1)">🚗 سيارات</a></li><li><a href="#" onclick="showCatPage(2)">🏠 عقارات</a></li><li><a href="#" onclick="showCatPage(3)">📱 موبايلات</a></li></ul></div><div><h3>مدن</h3><ul><li><a href="#">صنعاء</a></li><li><a href="#">عدن</a></li><li><a href="#">تعز</a></li></ul></div><div><h3>روابط</h3><ul><li><a href="#">حول</a></li><li><a href="#">خصوصية</a></li><li><a href="#">اتصل</a></li></ul></div></div><div class="footer-bottom"><p>© 2024 السوق المفتوح اليمن 🇾🇪</p></div></div></footer>
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0})">↑</button>
 
 <script>
 // ============================================
-// البيانات
+// البيانات الأساسية (قابلة للتعديل بالكامل)
 // ============================================
-const CURRENCIES = { YER:{symbol:'ر.ي',rate:1}, USD:{symbol:'$',rate:250}, SAR:{symbol:'ر.س',rate:66.5} };
-const CITIES = ['صنعاء','عدن','تعز','الحديدة','إب','المكلا','سيئون','ذمار','عمران','صعدة','مأرب','البيضاء','حجة','لحج','أبين','شبوة','الضالع','المهرة','سقطرى'];
-const CATEGORIES = [
-    {id:1,ar:'سيارات',en:'Cars',icon:'🚗',count:1250},
-    {id:2,ar:'عقارات',en:'Real Estate',icon:'🏠',count:890},
-    {id:3,ar:'موبايلات',en:'Mobiles',icon:'📱',count:950},
-    {id:4,ar:'إلكترونيات',en:'Electronics',icon:'💻',count:670},
-    {id:5,ar:'أثاث',en:'Furniture',icon:'🪑',count:430},
-    {id:6,ar:'مواشي',en:'Livestock',icon:'🐑',count:320},
-    {id:7,ar:'وظائف',en:'Jobs',icon:'💼',count:180},
-    {id:8,ar:'خدمات',en:'Services',icon:'🔧',count:560},
-    {id:9,ar:'ملابس',en:'Fashion',icon:'👕',count:290},
-    {id:10,ar:'كتب',en:'Books',icon:'📚',count:150}
+let SITE_CONFIG = JSON.parse(localStorage.getItem('site_config')) || {
+    name: 'السوق المفتوح',
+    nameEn: 'OpenSooq',
+    country: 'اليمن',
+    currency: 'YER',
+    logoIcon: 'fa-store-alt',
+    logoColor1: '#2563EB',
+    logoColor2: '#10B981',
+    primaryColor: '#2563EB',
+    heroTitle: 'أكبر سوق إلكتروني في اليمن',
+    heroDesc: 'بيع واشتري كل ما تحتاجه بسهولة وأمان'
+};
+
+let CATS = JSON.parse(localStorage.getItem('site_cats')) || [
+    {id:1,ar:'سيارات',en:'Cars',icon:'🚗'},
+    {id:2,ar:'عقارات',en:'Real Estate',icon:'🏠'},
+    {id:3,ar:'موبايلات',en:'Mobiles',icon:'📱'},
+    {id:4,ar:'إلكترونيات',en:'Electronics',icon:'💻'},
+    {id:5,ar:'أثاث',en:'Furniture',icon:'🪑'},
+    {id:6,ar:'مواشي',en:'Livestock',icon:'🐑'},
+    {id:7,ar:'وظائف',en:'Jobs',icon:'💼'},
+    {id:8,ar:'خدمات',en:'Services',icon:'🔧'},
+    {id:9,ar:'ملابس',en:'Fashion',icon:'👕'},
+    {id:10,ar:'كتب',en:'Books',icon:'📚'}
 ];
 
-let ADS = JSON.parse(localStorage.getItem('souq_ads')) || [
-    {id:1,titleAr:'تويوتا كورولا 2020 ماشية 50 ألف كم',titleEn:'Toyota Corolla 2020',price:8500000,currency:'YER',catId:1,city:'صنعاء',type:'sale',featured:true,phone:'777123456',descAr:'سيارة بحالة ممتازة',views:3456,rating:4.8,reviews:[{user:'أحمد',rating:5,comment:'ممتازة'}],date:'2024-01-15',seller:{name:'عبدالله',phone:'777123456',rating:4.7}},
-    {id:2,titleAr:'شقة للإيجار في حدة',titleEn:'Apartment for Rent',price:120000,currency:'YER',catId:2,city:'صنعاء',type:'rent',featured:true,phone:'777654321',descAr:'3 غرف وصالة',views:2156,rating:4.5,reviews:[],date:'2024-01-14',seller:{name:'فاطمة',phone:'777654321',rating:4.9}},
-    {id:3,titleAr:'آيفون 14 برو ماكس 256 جيجا',titleEn:'iPhone 14 Pro Max',price:1200000,currency:'YER',catId:3,city:'عدن',type:'sale',featured:false,phone:'777987654',descAr:'جديد بالكرتون',views:5432,rating:4.3,reviews:[],date:'2024-01-13',seller:{name:'محمد',phone:'777987654',rating:4.2}},
-    {id:4,titleAr:'أرض للبيع في الشيخ عثمان',titleEn:'Land for Sale',price:15000000,currency:'YER',catId:2,city:'عدن',type:'sale',featured:true,phone:'777456789',descAr:'500 متر',views:1876,rating:4.6,reviews:[],date:'2024-01-12',seller:{name:'سالم',phone:'777456789',rating:4.8}},
-    {id:5,titleAr:'مولد كهرباء 10 كيلو',titleEn:'Generator 10KW',price:750000,currency:'YER',catId:4,city:'تعز',type:'sale',featured:false,phone:'777111222',descAr:'ياباني',views:987,rating:4.2,reviews:[],date:'2024-01-11',seller:{name:'أحمد',phone:'777111222',rating:4.1}},
-    {id:6,titleAr:'غرفة نوم كاملة',titleEn:'Bedroom Set',price:450000,currency:'YER',catId:5,city:'الحديدة',type:'sale',featured:false,phone:'777333444',descAr:'استعمال 6 شهور',views:756,rating:4.0,reviews:[],date:'2024-01-10',seller:{name:'نورة',phone:'777333444',rating:3.8}},
-    {id:7,titleAr:'بقرة حلوب',titleEn:'Dairy Cow',price:600000,currency:'YER',catId:6,city:'إب',type:'sale',featured:false,phone:'777555666',descAr:'هولندية',views:654,rating:4.7,reviews:[],date:'2024-01-09',seller:{name:'يحيى',phone:'777555666',rating:4.9}},
-    {id:8,titleAr:'مطلوب محاسب',titleEn:'Accountant Wanted',price:200000,currency:'YER',catId:7,city:'ذمار',type:'free',featured:true,phone:'777777888',descAr:'خبرة 3 سنوات',views:2345,rating:3.8,reviews:[],date:'2024-01-08',seller:{name:'شركة النجاح',phone:'777777888',rating:4.5}}
+let CITIES = JSON.parse(localStorage.getItem('site_cities')) || [
+    'صنعاء','عدن','تعز','الحديدة','إب','المكلا','سيئون','ذمار','عمران','صعدة','مأرب','البيضاء','حجة','لحج','أبين','شبوة','الضالع','المهرة','سقطرى'
 ];
 
-let FAVS = JSON.parse(localStorage.getItem('souq_favs')) || [];
-let CHATS = JSON.parse(localStorage.getItem('souq_chats')) || [];
-let SETTINGS = JSON.parse(localStorage.getItem('souq_settings')) || {lang:'ar',currency:'YER'};
-const SECRET = 'mazen7ali7algelany7';
-let logoClicks = 0;
-let currentFilter = {cat:0,city:'',sort:'new',feat:false,search:''};
-let currentPage = 1;
-const PER_PAGE = 12;
+let CURR = { YER:{s:'ر.ي',r:1}, USD:{s:'$',r:250}, SAR:{s:'ر.س',r:66.5} };
 
-function save() {
-    localStorage.setItem('souq_ads', JSON.stringify(ADS));
-    localStorage.setItem('souq_favs', JSON.stringify(FAVS));
-    localStorage.setItem('souq_chats', JSON.stringify(CHATS));
-    localStorage.setItem('souq_settings', JSON.stringify(SETTINGS));
+let ADS = JSON.parse(localStorage.getItem('site_ads')) || [
+    {id:1,t:'تويوتا كورولا 2020',te:'Toyota Corolla 2020',p:8500000,cur:'YER',cid:1,c:'صنعاء',ph:'777123456',d:'سيارة بحالة ممتازة',img:'',fe:true,v:3456,ra:4.8,rv:[],dt:'2024-01-15'},
+    {id:2,t:'شقة للإيجار في حدة',te:'Apartment for Rent',p:120000,cur:'YER',cid:2,c:'صنعاء',ph:'777654321',d:'3 غرف وصالة',img:'',fe:true,v:2156,ra:4.5,rv:[],dt:'2024-01-14'},
+    {id:3,t:'آيفون 14 برو ماكس',te:'iPhone 14 Pro Max',p:1200000,cur:'YER',cid:3,c:'عدن',ph:'777987654',d:'جديد',img:'',fe:false,v:5432,ra:4.3,rv:[],dt:'2024-01-13'},
+    {id:4,t:'أرض للبيع في الشيخ عثمان',te:'Land for Sale',p:15000000,cur:'YER',cid:2,c:'عدن',ph:'777456789',d:'500 متر',img:'',fe:true,v:1876,ra:4.6,rv:[],dt:'2024-01-12'},
+    {id:5,t:'مولد كهرباء 10 كيلو',te:'Generator',p:750000,cur:'YER',cid:4,c:'تعز',ph:'777111222',d:'ياباني',img:'',fe:false,v:987,ra:4.2,rv:[],dt:'2024-01-11'},
+    {id:6,t:'غرفة نوم كاملة',te:'Bedroom Set',p:450000,cur:'YER',cid:5,c:'الحديدة',ph:'777333444',d:'استعمال 6 شهور',img:'',fe:false,v:756,ra:4.0,rv:[],dt:'2024-01-10'}
+];
+
+let FAVS = JSON.parse(localStorage.getItem('site_favs')) || [];
+let SETTINGS = JSON.parse(localStorage.getItem('site_settings')) || {lang:'ar',cur:'YER',secret:'mazen7ali7algelany7'};
+let logoClicks = 0, curPage = 1, catPage = 1, PER = 8;
+
+function saveAll() {
+    localStorage.setItem('site_config', JSON.stringify(SITE_CONFIG));
+    localStorage.setItem('site_cats', JSON.stringify(CATS));
+    localStorage.setItem('site_cities', JSON.stringify(CITIES));
+    localStorage.setItem('site_ads', JSON.stringify(ADS));
+    localStorage.setItem('site_favs', JSON.stringify(FAVS));
+    localStorage.setItem('site_settings', JSON.stringify(SETTINGS));
 }
 
-function fmtPrice(p, c) {
-    const cur = CURRENCIES[c] || CURRENCIES['YER'];
-    const v = p / cur.rate;
-    return (c==='YER' ? Math.round(v).toLocaleString() : v.toFixed(2)) + ' ' + cur.symbol;
+function fp(p,c) { const cu=CURR[c]||CURR['YER']; const v=p/cu.r; return (c==='YER'?Math.round(v).toLocaleString():v.toFixed(2))+' '+cu.s; }
+function ta(d) { const df=Math.floor((new Date()-new Date(d))/1000); if(df<60)return'الآن'; if(df<3600)return'قبل '+Math.floor(df/60)+' د'; if(df<86400)return'قبل '+Math.floor(df/3600)+' س'; return new Date(d).toLocaleDateString('ar-YE'); }
+function st(r) { if(!r)return'☆☆☆☆☆'; let s=''; for(let i=1;i<=5;i++)s+=i<=Math.floor(r)?'⭐':'☆'; return s; }
+
+function adCard(a) {
+    const cat = CATS.find(c=>c.id===a.cid);
+    const isF = FAVS.includes(a.id);
+    const imgBg = a.img ? `background-image:url(${a.img});background-size:cover;background-position:center;` : `background:linear-gradient(135deg,#EFF6FF,#DBEAFE);`;
+    return `
+    <div class="ad-card">
+        <div class="ad-img" onclick="viewDet(${a.id})" style="${imgBg}">
+            ${!a.img?`<span style="font-size:70px;">${cat?cat.icon:'📦'}</span>`:''}
+            ${a.fe?'<span class="ad-badge badge-feat">⭐ مميز</span>':''}
+            <span class="ad-badge badge-sale">للبيع</span>
+        </div>
+        <button class="ad-fav-btn ${isF?'active':''}" onclick="event.stopPropagation();toggleFav(${a.id})"><i class="fas fa-heart"></i></button>
+        <div class="ad-body">
+            <div class="ad-price">${fp(a.p,a.cur)}</div>
+            <div class="ad-title" onclick="viewDet(${a.id})">${a.t}</div>
+            <div class="ad-meta"><span>📍 ${a.c}</span><span>📅 ${ta(a.dt)}</span></div>
+            <div class="ad-meta"><span>👁️ ${a.v}</span><span>${st(a.ra)}</span></div>
+            <div class="ad-actions">
+                <button class="btn-call" onclick="event.stopPropagation();callNow('${a.ph}')">📞 اتصال</button>
+                <button onclick="event.stopPropagation();viewDet(${a.id})">💬 تفاصيل</button>
+            </div>
+        </div>
+    </div>`;
 }
 
-function timeAgo(d) {
-    const diff = Math.floor((new Date() - new Date(d)) / 1000);
-    if(diff<60) return 'الآن';
-    if(diff<3600) return 'قبل '+Math.floor(diff/60)+' د';
-    if(diff<86400) return 'قبل '+Math.floor(diff/3600)+' س';
-    return new Date(d).toLocaleDateString('ar-YE');
-}
-
-function stars(r) {
-    if(!r) return '☆☆☆☆☆';
-    let s=''; for(let i=1;i<=5;i++) s+= i<=Math.floor(r) ? '⭐' : '☆';
-    return s;
+function pgnBar(total,pages,cur,fn) {
+    let h=''; if(pages>1) for(let i=1;i<=pages;i++) h+=`<button class="${i===cur?'active':''}" onclick="${fn}(${i})">${i}</button>`;
+    return h;
 }
 
 // ===== التهيئة =====
 function init() {
-    populateSelects();
-    loadCategories();
-    applyFilters();
-    updateFavCount();
-    // أحداث المودال
-    document.querySelectorAll('.modal-tab').forEach(tab => {
-        tab.onclick = function() {
-            document.querySelectorAll('.modal-tab').forEach(t=>t.classList.remove('active'));
-            this.classList.add('active');
-            document.querySelectorAll('.modal-form').forEach(f=>f.classList.remove('active-form'));
-            document.querySelector(this.dataset.tab==='login' ? '#authModal form:first-of-type' : '#authModal form:last-of-type').classList.add('active-form');
-        };
-    });
-    // إغلاق المودال
-    document.querySelectorAll('.modal-overlay').forEach(m => {
-        m.onclick = function(e) { if(e.target===this) this.classList.remove('show'); };
-    });
-    // زر العودة
-    window.onscroll = function() {
-        document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 500);
-    };
+    loadNav();
+    loadCats();
+    loadHomeAds();
+    updateFavBadge();
+    document.getElementById('heroAds').textContent = ADS.length;
+    document.querySelectorAll('.modal-tab').forEach(t=>{t.onclick=function(){document.querySelectorAll('.modal-tab').forEach(x=>x.classList.remove('active'));this.classList.add('active');document.querySelectorAll('.modal-form').forEach(f=>f.classList.remove('active'));const f=this.dataset.t==='login'?document.querySelector('#authModal .modal-form:first-of-type'):document.querySelector('#authModal .modal-form:last-of-type');if(f)f.classList.add('active');};});
+    document.querySelectorAll('.modal-overlay').forEach(m=>{m.addEventListener('click',function(e){if(e.target===this)this.classList.remove('show');});});
+    window.addEventListener('scroll',()=>{document.getElementById('backTop').classList.toggle('show',window.scrollY>500);});
 }
 
-function populateSelects() {
-    const cityOpts = '<option value="">كل المدن</option>' + CITIES.map(c=>`<option value="${c}">${c}</option>`).join('');
-    document.getElementById('fCity').innerHTML = cityOpts;
-    document.getElementById('adCity').innerHTML = '<option value="">اختر المدينة</option>' + CITIES.map(c=>`<option>${c}</option>`).join('');
-    document.getElementById('adCat').innerHTML = '<option value="">اختر التصنيف</option>' + CATEGORIES.map(c=>`<option value="${c.id}">${c.icon} ${c.ar}</option>`).join('');
+function loadNav() {
+    document.getElementById('navList').innerHTML = `<li><a href="#" class="nav-link active" onclick="showPage('home')">🏠 الرئيسية</a></li>`+
+        CATS.map(c=>`<li><a href="#" class="nav-link" onclick="showCatPage(${c.id})">${c.icon} ${c.ar}</a></li>`).join('');
 }
 
-function loadCategories() {
-    document.getElementById('catGrid').innerHTML = CATEGORIES.map(c => `
-        <div class="category-full-card" onclick="filterByCat(${c.id})">
-            <div class="category-full-icon">${c.icon}</div>
-            <div class="category-full-name">${c.ar}</div>
-        </div>
-    `).join('');
+function loadCats() {
+    document.getElementById('catGrid').innerHTML = CATS.map(c=>`<div class="cat-card" onclick="showCatPage(${c.id})"><div class="cat-icon">${c.icon}</div><div class="cat-name">${c.ar}</div></div>`).join('');
 }
 
-// ===== عرض الإعلانات =====
-function applyFilters(page) {
-    currentPage = page || 1;
-    let filtered = [...ADS];
-    if(currentFilter.cat) filtered = filtered.filter(a=>a.catId===currentFilter.cat);
-    if(currentFilter.city) filtered = filtered.filter(a=>a.city===currentFilter.city);
-    if(currentFilter.feat) filtered = filtered.filter(a=>a.featured);
-    if(currentFilter.search) {
-        const q = currentFilter.search.toLowerCase();
-        filtered = filtered.filter(a=>a.titleAr.toLowerCase().includes(q)||a.titleEn.toLowerCase().includes(q)||a.city.includes(q));
-    }
-    if(currentFilter.sort==='cheap') filtered.sort((a,b)=>a.price-b.price);
-    else if(currentFilter.sort==='exp') filtered.sort((a,b)=>b.price-a.price);
-    else filtered.sort((a,b)=>new Date(b.date)-new Date(a.date));
-
-    const total = filtered.length;
-    const pages = Math.ceil(total/PER_PAGE);
-    const start = (currentPage-1)*PER_PAGE;
-    const pageAds = filtered.slice(start, start+PER_PAGE);
-
-    const grid = document.getElementById('adsGrid');
-    if(pageAds.length===0) {
-        grid.innerHTML = '<div class="no-results"><div class="no-results-icon">🔍</div><h3>لا توجد إعلانات</h3></div>';
-    } else {
-        grid.innerHTML = pageAds.map(ad => {
-            const isFav = FAVS.includes(ad.id);
-            const cat = CATEGORIES.find(c=>c.id===ad.catId);
-            const tp = {sale:'للبيع',rent:'للإيجار',free:'مجاني'};
-            return `
-            <div class="ad-card">
-                <div class="ad-card-image" onclick="viewDetails(${ad.id})" style="background:linear-gradient(135deg,#EFF6FF,#DBEAFE);">
-                    ${cat?cat.icon:'📦'}
-                    ${ad.featured?'<span class="ad-card-badge badge-featured">⭐ مميز</span>':''}
-                    <span class="ad-card-badge badge-${ad.type}">${tp[ad.type]||'ad.type'}</span>
-                </div>
-                <button class="ad-card-fav ${isFav?'active':''}" onclick="event.stopPropagation();toggleFav(${ad.id})"><i class="fas fa-heart"></i></button>
-                <div class="ad-card-body">
-                    <div class="ad-card-price">${fmtPrice(ad.price,ad.currency)}</div>
-                    <div class="ad-card-title" onclick="viewDetails(${ad.id})">${ad.titleAr}</div>
-                    <div class="ad-card-meta">
-                        <span>📍 ${ad.city}</span>
-                        <span>📅 ${timeAgo(ad.date)}</span>
-                    </div>
-                    <div class="ad-card-meta">
-                        <span>👁️ ${ad.views}</span>
-                        <span>${stars(ad.rating)}</span>
-                    </div>
-                    <div class="ad-card-actions">
-                        <button class="btn-contact" onclick="event.stopPropagation();callNow('${ad.phone}')">📞 اتصال</button>
-                        <button onclick="event.stopPropagation();viewDetails(${ad.id})">💬 تفاصيل</button>
-                    </div>
-                </div>
-            </div>`;
-        }).join('');
-    }
-
-    // التصفح
-    let pgn = '';
-    if(pages>1) {
-        for(let i=1;i<=pages;i++) {
-            pgn += `<button class="${i===currentPage?'active':''}" onclick="goToPage(${i})">${i}</button>`;
-        }
-    }
-    document.getElementById('pgn').innerHTML = pgn;
+function loadHomeAds(page) {
+    curPage=page||1; const s=[...ADS].sort((a,b)=>new Date(b.dt)-new Date(a.dt));
+    const total=s.length, pages=Math.ceil(total/PER), start=(curPage-1)*PER, pa=s.slice(start,start+PER);
+    document.getElementById('homeAds').innerHTML=pa.length?pa.map(a=>adCard(a)).join(''):'<p style="text-align:center;padding:40px;">لا توجد إعلانات</p>';
+    document.getElementById('homePgn').innerHTML=pgnBar(total,pages,curPage,'goHomePage');
 }
+function goHomePage(p){loadHomeAds(p);window.scrollTo({top:400,behavior:'smooth'});}
 
-function goToPage(p) { applyFilters(p); window.scrollTo({top:400,behavior:'smooth'}); }
-function filterByCat(id) { currentFilter.cat=id; currentPage=1; applyFilters(); document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active')); }
-function filterClear() { currentFilter.cat=0; currentFilter.feat=false; currentPage=1; applyFilters(); document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active')); document.querySelector('.nav-link').classList.add('active'); }
-function toggleFeat() { currentFilter.feat=!currentFilter.feat; document.getElementById('btnFeat').style.background=currentFilter.feat?'#FEF3C7':''; applyFilters(); }
-function performSearch() { currentFilter.search=document.getElementById('globalSearch').value.trim(); currentPage=1; applyFilters(); }
-function clearSearch() { document.getElementById('globalSearch').value=''; document.getElementById('searchClear').style.display='none'; currentFilter.search=''; applyFilters(); }
-function handleSearchInput(v) { document.getElementById('searchClear').style.display=v?'block':'none'; }
-
-// ===== تفاصيل الإعلان =====
-function viewDetails(id) {
-    const ad = ADS.find(a=>a.id===id);
-    if(!ad) return;
-    document.getElementById('homePage').style.display='none';
-    document.getElementById('favPage').style.display='none';
-    const dp = document.getElementById('detailsPage');
-    dp.style.display='block';
-    const cat = CATEGORIES.find(c=>c.id===ad.catId);
-    dp.innerHTML = `
-        <button class="btn btn-outline" onclick="showPage('home')" style="margin-bottom:20px;">← رجوع</button>
-        <div style="background:white;border-radius:12px;padding:30px;">
-            <div style="text-align:center;font-size:80px;padding:40px;background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border-radius:12px;margin-bottom:20px;">${cat?cat.icon:'📦'}</div>
-            <h1>${ad.titleAr}</h1>
-            <h2 style="color:#2563EB;font-size:28px;margin:15px 0;">${fmtPrice(ad.price,ad.currency)}</h2>
-            <p>📍 ${ad.city} | 📅 ${ad.date} | 👁️ ${ad.views} مشاهدة</p>
-            <p>${stars(ad.rating)} (${ad.reviews.length} تقييم)</p>
-            <p style="margin:20px 0;">${ad.descAr||''}</p>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;">
-                <button class="btn btn-primary btn-lg" onclick="callNow('${ad.phone}')">📞 ${ad.phone}</button>
-                <button class="btn btn-outline btn-lg" onclick="window.open('https://wa.me/967${ad.phone}')">💬 واتساب</button>
-            </div>
-            <h3 style="margin-top:30px;">📝 التقييمات</h3>
-            ${ad.reviews.map(r=>`<div style="background:#F8FAFC;padding:15px;border-radius:8px;margin:10px 0;"><strong>${r.user}</strong> ${stars(r.rating)}<br>${r.comment}</div>`).join('')}
-            <div style="margin-top:20px;">
-                <h4>أضف تقييمك</h4>
-                <select id="revRating"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select>
-                <input type="text" id="revComment" placeholder="تعليقك" style="width:100%;padding:10px;margin:10px 0;border:1px solid #E2E8F0;border-radius:8px;">
-                <button class="btn btn-primary" onclick="addReview(${ad.id})">إرسال</button>
-            </div>
-        </div>
-    `;
-    window.scrollTo({top:0});
-}
-
-function addReview(id) {
-    const ad = ADS.find(a=>a.id===id);
-    if(!ad) return;
-    ad.reviews.push({user:'زائر',rating:parseInt(document.getElementById('revRating').value),comment:document.getElementById('revComment').value});
-    ad.rating = parseFloat((ad.reviews.reduce((s,r)=>s+r.rating,0)/ad.reviews.length).toFixed(1));
-    save(); viewDetails(id); toast('✅ تم إضافة التقييم');
-}
-
-// ===== مفضلة =====
-function toggleFav(id) {
-    if(FAVS.includes(id)) FAVS=FAVS.filter(i=>i!==id);
-    else FAVS.push(id);
-    save(); updateFavCount(); applyFilters(currentPage);
-}
-function updateFavCount() {
-    const b = document.getElementById('favCountBadge');
-    b.textContent = FAVS.length;
-    b.style.display = FAVS.length>0?'flex':'none';
-}
-
-// ===== صفحات =====
 function showPage(p) {
     document.getElementById('homePage').style.display='none';
-    document.getElementById('detailsPage').style.display='none';
+    document.getElementById('catPage').style.display='none';
+    document.getElementById('detPage').style.display='none';
     document.getElementById('favPage').style.display='none';
-    if(p==='home') { document.getElementById('homePage').style.display='block'; applyFilters(); }
-    else if(p==='favorites') {
-        document.getElementById('favPage').style.display='block';
-        const favAds = ADS.filter(a=>FAVS.includes(a.id));
-        document.getElementById('favPage').innerHTML = `
-            <h2>❤️ المفضلة</h2>
-            <div class="ads-grid">${favAds.length>0 ? favAds.map(ad=>{
-                const isFav=true; const cat=CATEGORIES.find(c=>c.id===ad.catId);
-                return `<div class="ad-card">
-                    <div class="ad-card-image" onclick="viewDetails(${ad.id})" style="background:linear-gradient(135deg,#EFF6FF,#DBEAFE);font-size:70px;">${cat?cat.icon:'📦'}</div>
-                    <button class="ad-card-fav active" onclick="event.stopPropagation();toggleFav(${ad.id})"><i class="fas fa-heart"></i></button>
-                    <div class="ad-card-body">
-                        <div class="ad-card-price">${fmtPrice(ad.price,ad.currency)}</div>
-                        <div class="ad-card-title">${ad.titleAr}</div>
-                        <div class="ad-card-meta"><span>📍 ${ad.city}</span></div>
-                    </div>
-                </div>`;
-            }).join('') : '<p style="text-align:center;padding:40px;">😔 لا توجد إعلانات مفضلة</p>'}</div>
-        `;
-    }
+    if(p==='home'){document.getElementById('homePage').style.display='block';loadHomeAds();}
+    else if(p==='fav'){document.getElementById('favPage').style.display='block';document.getElementById('favPage').innerHTML=`<h2>❤️ المفضلة</h2><div class="ads-grid">${FAVS.length?ADS.filter(a=>FAVS.includes(a.id)).map(a=>adCard(a)).join(''):'<p style="text-align:center;padding:40px;">😔 لا توجد</p>'}</div>`;}
+    window.scrollTo({top:0});
+    document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+}
+
+function showCatPage(cid) {
+    const cat=CATS.find(c=>c.id===cid); if(!cat) return;
+    document.getElementById('homePage').style.display='none';
+    document.getElementById('detPage').style.display='none';
+    document.getElementById('favPage').style.display='none';
+    document.getElementById('catPage').style.display='block';
+    document.getElementById('catPage').innerHTML=`<button class="btn btn-outline" onclick="showPage('home')">← رجوع</button><h2>${cat.icon} ${cat.ar}</h2><div class="ads-grid" id="catAds"></div><div class="pgn" id="catPgn"></div>`;
+    catPage=1; loadCatAds(cid);
+    document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+    document.querySelector(`.nav-link[onclick="showCatPage(${cid})"]`)?.classList.add('active');
     window.scrollTo({top:0});
 }
+function loadCatAds(cid,page){catPage=page||1;const f=ADS.filter(a=>a.cid===cid).sort((a,b)=>new Date(b.dt)-new Date(a.dt));const t=f.length,pgs=Math.ceil(t/PER),st=(catPage-1)*PER,pa=f.slice(st,st+PER);document.getElementById('catAds').innerHTML=pa.length?pa.map(a=>adCard(a)).join(''):'<p style="text-align:center;padding:40px;">😔 لا توجد</p>';document.getElementById('catPgn').innerHTML=pgnBar(t,pgs,catPage,'goCatPage');}
+function goCatPage(p){const cid=parseInt(document.querySelector('.nav-link.active')?.getAttribute('onclick')?.match(/\d+/)?.[0])||0;if(cid)loadCatAds(cid,p);window.scrollTo({top:400,behavior:'smooth'});}
 
-// ===== إضافة إعلان =====
-function addNewAd(e) {
-    e.preventDefault();
-    const ad = {
-        id: Date.now(),
-        titleAr: document.getElementById('adTitleAr').value,
-        titleEn: document.getElementById('adTitleEn').value || '',
-        price: parseInt(document.getElementById('adPrice').value),
-        currency: document.getElementById('adCur').value,
-        catId: parseInt(document.getElementById('adCat').value),
-        city: document.getElementById('adCity').value,
-        phone: document.getElementById('adPhone').value,
-        descAr: document.getElementById('adDesc').value || '',
-        type: 'sale', featured: false, views:0, rating:0, reviews:[],
-        date: new Date().toISOString().split('T')[0],
-        seller: {name:'بائع',phone:document.getElementById('adPhone').value,rating:0}
-    };
-    ADS.unshift(ad); save(); closeModal('addAdModal');
-    document.getElementById('addAdModal').querySelector('form').reset();
-    applyFilters(); toast('🎉 تم نشر الإعلان!');
+function viewDet(id) {
+    const a=ADS.find(x=>x.id===id); if(!a) return;
+    document.getElementById('homePage').style.display='none';
+    document.getElementById('catPage').style.display='none';
+    document.getElementById('favPage').style.display='none';
+    const dp=document.getElementById('detPage'); dp.style.display='block';
+    const cat=CATS.find(c=>c.id===a.cid);
+    dp.innerHTML=`<button class="btn btn-outline" onclick="history.back()" style="margin-bottom:20px;">← رجوع</button><div style="background:white;border-radius:12px;padding:30px;"><div style="text-align:center;font-size:80px;padding:40px;${a.img?`background-image:url(${a.img});background-size:cover;`: 'background:linear-gradient(135deg,#EFF6FF,#DBEAFE);'}border-radius:12px;">${!a.img?(cat?cat.icon:'📦'):''}</div><h1>${a.t}</h1><h2 style="color:#2563EB;">${fp(a.p,a.cur)}</h2><p>📍 ${a.c} | 👁️ ${a.v}</p><p>${st(a.ra)} (${a.rv.length})</p><p>${a.d||''}</p><button class="btn btn-primary" onclick="callNow('${a.ph}')">📞 ${a.ph}</button><h3 style="margin-top:20px;">📝 تقييمات</h3>${a.rv.map(r=>`<div style="background:#F8FAFC;padding:15px;border-radius:8px;margin:10px 0;"><strong>${r.u}</strong> ${st(r.r)}<br>${r.c}</div>`).join('')}<div style="margin-top:15px;"><select id="rvR"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select><input type="text" id="rvC" placeholder="تعليق" style="width:100%;padding:10px;margin:10px 0;border:1px solid #E2E8F0;border-radius:8px;"><button class="btn btn-primary" onclick="addRev(${a.id})">إرسال</button></div></div>`;
+    window.scrollTo({top:0});
 }
+function addRev(id){const a=ADS.find(x=>x.id===id);if(!a)return;a.rv.push({u:'زائر',r:parseInt(document.getElementById('rvR').value),c:document.getElementById('rvC').value});a.ra=parseFloat((a.rv.reduce((s,r)=>s+r.r,0)/a.rv.length).toFixed(1));saveAll();viewDet(id);toast('✅ تم');}
 
-// ===== مودالات =====
-function showAuthModal(t) { 
-    document.getElementById('authModal').classList.add('show');
-    document.querySelectorAll('.modal-tab').forEach(tab=>tab.classList.remove('active'));
-    document.querySelector(`.modal-tab[data-tab="${t}"]`).classList.add('active');
-    document.querySelectorAll('.modal-form').forEach(f=>f.classList.remove('active-form'));
-    document.querySelector(t==='login'?'#authModal form:first-of-type':'#authModal form:last-of-type').classList.add('active-form');
-}
-function showAddAdModal() { document.getElementById('addAdModal').classList.add('show'); populateSelects(); }
-function closeModal(id) { document.getElementById(id).classList.remove('show'); }
-function handleLogin(e) { e.preventDefault(); closeModal('authModal'); toast('✅ تم الدخول'); }
-function handleRegister(e) { e.preventDefault(); closeModal('authModal'); toast('✅ تم التسجيل'); }
+function toggleFav(id){if(FAVS.includes(id))FAVS=FAVS.filter(i=>i!==id);else FAVS.push(id);saveAll();updateFavBadge();loadHomeAds(curPage);}
+function updateFavBadge(){const b=document.getElementById('favBadge');b.textContent=FAVS.length;b.style.display=FAVS.length?'flex':'none';}
 
-// ===== لوحة التحكم =====
-function handleLogoClick() { logoClicks++; if(logoClicks>=7) { logoClicks=0; document.getElementById('secretModal').classList.add('show'); } setTimeout(()=>{logoClicks=0},3000); }
-function checkSecret() { if(document.getElementById('secretCode').value===SECRET) { closeModal('secretModal'); openAdmin(); } else toast('❌ خطأ'); }
-function openAdmin() { document.getElementById('adminPanel').style.display='flex'; loadAdminSection('dashboard'); }
-function closeAdmin() { document.getElementById('adminPanel').style.display='none'; }
+function showAddAd(){document.getElementById('addAdModal').classList.add('show');populateAddForm();}
+function populateAddForm(){document.getElementById('adCat').innerHTML='<option value="">اختر</option>'+CATS.map(c=>`<option value="${c.id}">${c.icon} ${c.ar}</option>`).join('');document.getElementById('adCity').innerHTML='<option value="">اختر</option>'+CITIES.map(c=>`<option>${c}</option>`).join('');}
+function addAd(e){e.preventDefault();const a={id:Date.now(),t:document.getElementById('adTitle').value,te:document.getElementById('adTitleEn').value||'',p:parseInt(document.getElementById('adPrice').value),cur:document.getElementById('adCur').value,cid:parseInt(document.getElementById('adCat').value),c:document.getElementById('adCity').value,ph:document.getElementById('adPhone').value,d:document.getElementById('adDesc').value||'',img:document.getElementById('adImg').value||'',fe:false,v:0,ra:0,rv:[],dt:new Date().toISOString().split('T')[0]};ADS.unshift(a);saveAll();closeMod('addAdModal');e.target.reset();showPage('home');toast('🎉 تم!');}
 
-function loadAdminSection(s) {
-    const c = document.getElementById('adminContent');
+function showAuth(t){document.getElementById('authModal').classList.add('show');document.querySelectorAll('.modal-tab').forEach(tb=>tb.classList.remove('active'));const tb=document.querySelector(`.modal-tab[data-t="${t}"]`);if(tb)tb.classList.add('active');document.querySelectorAll('.modal-form').forEach(f=>f.classList.remove('active'));const f=t==='login'?document.querySelector('#authModal .modal-form:first-of-type'):document.querySelector('#authModal .modal-form:last-of-type');if(f)f.classList.add('active');}
+function closeMod(id){document.getElementById(id).classList.remove('show');}
+function handleLogin(e){e.preventDefault();closeMod('authModal');toast('✅ تم');}
+function handleRegister(e){e.preventDefault();closeMod('authModal');toast('✅ تم');}
+
+function doSearch(){const q=document.getElementById('searchInput').value.trim().toLowerCase();if(!q){showPage('home');return;}const f=ADS.filter(a=>a.t.toLowerCase().includes(q)||a.te.toLowerCase().includes(q)||a.c.includes(q));document.getElementById('homePage').style.display='none';document.getElementById('catPage').style.display='none';document.getElementById('favPage').style.display='none';document.getElementById('detPage').style.display='block';document.getElementById('detPage').innerHTML=`<button class="btn btn-outline" onclick="showPage('home')">← رجوع</button><h2>🔍 نتائج: "${q}"</h2><div class="ads-grid">${f.length?f.map(a=>adCard(a)).join(''):'<p>😔 لا توجد</p>'}</div>`;}
+
+function callNow(p){window.open('tel:+967'+p);}
+function changeCur(){SETTINGS.cur=document.querySelector('.currency-select').value;saveAll();showPage('home');}
+function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity 0.3s';setTimeout(()=>t.remove(),300);},2000);}
+
+// ===== لوحة تحكم شاملة =====
+function logoClick(){logoClicks++;if(logoClicks>=7){logoClicks=0;document.getElementById('secretModal').classList.add('show');}setTimeout(()=>{logoClicks=0;},3000);}
+function checkSecret(){if(document.getElementById('secretCode').value===SETTINGS.secret){closeMod('secretModal');openAdmin();}else toast('❌ خطأ');}
+function openAdmin(){document.getElementById('adminPanel').classList.add('show');document.body.style.overflow='hidden';loadAdmin('dash');}
+function closeAdmin(){document.getElementById('adminPanel').classList.remove('show');document.body.style.overflow='';init();showPage('home');}
+
+function loadAdmin(section){
     document.querySelectorAll('.admin-menu-item').forEach(i=>i.classList.remove('active'));
-    document.querySelector(`[onclick="loadAdminSection('${s}')"]`)?.classList.add('active');
+    document.querySelector(`.admin-menu-item[onclick="loadAdmin('${section}')"]`)?.classList.add('active');
+    const c=document.getElementById('adminMain');
     
-    if(s==='dashboard') {
-        c.innerHTML = `
-            <h2>📊 الإحصائيات</h2>
-            <div class="admin-stats-grid">
-                <div class="admin-stat-card"><div class="admin-stat-value">${ADS.length}</div><div class="admin-stat-label">إعلانات</div></div>
-                <div class="admin-stat-card"><div class="admin-stat-value">${ADS.filter(a=>a.featured).length}</div><div class="admin-stat-label">مميزة</div></div>
-                <div class="admin-stat-card"><div class="admin-stat-value">${FAVS.length}</div><div class="admin-stat-label">مفضلة</div></div>
-            </div>
-        `;
-    } else if(s==='ads') {
-        c.innerHTML = `
-            <h2>📋 الإعلانات</h2>
-            <table class="admin-table">
-                <thead><tr><th>#</th><th>العنوان</th><th>المدينة</th><th>السعر</th><th>إجراءات</th></tr></thead>
-                <tbody>${ADS.map(a=>`
-                    <tr>
-                        <td>${a.id}</td><td>${a.titleAr.substring(0,30)}</td><td>${a.city}</td><td>${fmtPrice(a.price,a.currency)}</td>
-                        <td>
-                            <button class="btn-sm" style="background:#F59E0B;color:white;" onclick="toggleFeatAd(${a.id})">⭐</button>
-                            <button class="btn-sm btn-danger" onclick="delAd(${a.id})">🗑️</button>
-                        </td>
-                    </tr>
-                `).join('')}</tbody>
-            </table>
-        `;
-    } else if(s==='users') {
-        c.innerHTML = '<h2>👥 المستخدمين</h2><p>المستخدمون المسجلون</p>';
-    } else if(s==='settings') {
-        c.innerHTML = `
-            <h2>⚙️ الإعدادات</h2>
-            <button class="btn btn-primary" onclick="exportData()">📥 تصدير</button>
-            <button class="btn btn-danger" onclick="resetData()" style="margin-right:10px;">🗑️ مسح الكل</button>
-        `;
+    if(section==='dash'){
+        c.innerHTML=`<h2>📊 الإحصائيات</h2><div class="admin-stats">${[
+            {v:ADS.length,l:'إعلانات',c:'#2563EB'},{v:ADS.filter(a=>a.fe).length,l:'مميزة',c:'#F59E0B'},
+            {v:FAVS.length,l:'مفضلة',c:'#DC2626'},{v:ADS.reduce((s,a)=>s+a.v,0).toLocaleString(),l:'مشاهدات',c:'#8B5CF6'},
+            {v:CATS.length,l:'تصنيفات',c:'#10B981'},{v:CITIES.length,l:'مدن',c:'#EC4899'}
+        ].map(s=>`<div class="admin-stat" style="border-left-color:${s.c};"><div class="val">${s.v}</div><div class="lbl">${s.l}</div></div>`).join('')}</div>
+        <div class="admin-card"><h3>⚡ إجراءات سريعة</h3><button class="btn btn-primary" onclick="loadAdmin('add')">📢 إضافة إعلان</button><button class="btn btn-outline" onclick="loadAdmin('cats')" style="margin-right:10px;">📂 التصنيفات</button></div>`;
     }
+    else if(section==='ads'){
+        c.innerHTML=`<h2>📋 الإعلانات (${ADS.length})</h2><div style="margin-bottom:15px;display:flex;gap:10px;flex-wrap:wrap;"><input type="text" id="adminSearch" placeholder="🔍 بحث" oninput="filterAdminAds()" style="padding:10px;border:1px solid #E2E8F0;border-radius:8px;"><select id="adminCatFilter" onchange="filterAdminAds()" style="padding:10px;border:1px solid #E2E8F0;border-radius:8px;"><option value="0">كل التصنيفات</option>${CATS.map(c=>`<option value="${c.id}">${c.icon} ${c.ar}</option>`).join('')}</select></div><div class="admin-card" style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>#</th><th>صورة</th><th>عنوان</th><th>تصنيف</th><th>مدينة</th><th>سعر</th><th>مميز</th><th>إجراءات</th></tr></thead><tbody id="adminAdsBody">${genAdminAds(ADS)}</tbody></table></div>`;
+    }
+    else if(section==='add'){c.innerHTML=`
+        <h2>📢 إضافة إعلان جديد</h2><div class="admin-card"><form onsubmit="adminAddAd(event)">
+        <div class="form-row"><div class="form-group"><label>العنوان*</label><input type="text" id="adminAdT" required></div><div class="form-group"><label>إنجليزي</label><input type="text" id="adminAdTE"></div></div>
+        <div class="form-row"><div class="form-group"><label>تصنيف*</label><select id="adminAdCid">${CATS.map(c=>`<option value="${c.id}">${c.icon} ${c.ar}</option>`).join('')}</select></div><div class="form-group"><label>مدينة*</label><select id="adminAdC">${CITIES.map(c=>`<option>${c}</option>`).join('')}</select></div></div>
+        <div class="form-row"><div class="form-group"><label>سعر*</label><input type="number" id="adminAdP" required></div><div class="form-group"><label>عملة</label><select id="adminAdCur"><option value="YER">ريال يمني</option><option value="USD">دولار</option><option value="SAR">ريال سعودي</option></select></div></div>
+        <div class="form-row"><div class="form-group"><label>هاتف*</label><input type="tel" id="adminAdPh" required></div><div class="form-group"><label>مميز</label><select id="adminAdFe"><option value="0">لا</option><option value="1">نعم</option></select></div></div>
+        <div class="form-group"><label>وصف</label><textarea id="adminAdD" rows="3"></textarea></div>
+        <div class="form-group"><label>رابط صورة</label><input type="text" id="adminAdImg" placeholder="https://..."></div>
+        <button class="btn btn-primary" style="width:100%;">🚀 نشر</button></form></div>`;}
+    else if(section==='cats'){c.innerHTML=`<h2>📂 التصنيفات</h2><div class="admin-card"><table class="admin-table"><thead><tr><th>#</th><th>أيقونة</th><th>عربي</th><th>إنجليزي</th><th>إعلانات</th><th>إجراءات</th></tr></thead><tbody>${CATS.map(cat=>`<tr><td>${cat.id}</td><td><input value="${cat.icon}" onchange="updateCat(${cat.id},'icon',this.value)" style="width:40px;text-align:center;border:1px solid #E2E8F0;border-radius:4px;"></td><td><input value="${cat.ar}" onchange="updateCat(${cat.id},'ar',this.value)" style="border:1px solid #E2E8F0;border-radius:4px;padding:5px;"></td><td><input value="${cat.en}" onchange="updateCat(${cat.id},'en',this.value)" style="border:1px solid #E2E8F0;border-radius:4px;padding:5px;"></td><td>${ADS.filter(a=>a.cid===cat.id).length}</td><td><button class="btn-sm" style="background:#DC2626;" onclick="delCat(${cat.id})">🗑️</button></td></tr>`).join('')}</tbody></table><button class="btn btn-primary" onclick="addCat()" style="margin-top:15px;">➕ إضافة تصنيف</button></div>`;}
+    else if(section==='users'){const sellers={};ADS.forEach(a=>{const k=a.ph;if(!sellers[k])sellers[k]={ph:a.ph,cnt:0};sellers[k].cnt++;});c.innerHTML=`<h2>👥 المستخدمين</h2><div class="admin-card"><table class="admin-table"><thead><tr><th>هاتف</th><th>إعلانات</th><th>إجراءات</th></tr></thead><tbody>${Object.values(sellers).map(s=>`<tr><td>📞 ${s.ph}</td><td>${s.cnt}</td><td><button class="btn-sm" style="background:#DC2626;" onclick="delUserAds('${s.ph}')">🗑️ حذف الكل</button></td></tr>`).join('')}</tbody></table></div>`;}
+    else if(section==='appear'){c.innerHTML=`
+        <h2>🎨 تخصيص المظهر</h2><div class="admin-card">
+        <div class="form-group"><label>اسم الموقع</label><input type="text" id="cfgName" value="${SITE_CONFIG.name}"></div>
+        <div class="form-group"><label>الاسم الإنجليزي</label><input type="text" id="cfgNameEn" value="${SITE_CONFIG.nameEn}"></div>
+        <div class="form-group"><label>الدولة</label><input type="text" id="cfgCountry" value="${SITE_CONFIG.country}"></div>
+        <div class="form-group"><label>أيقونة الشعار (FontAwesome)</label><input type="text" id="cfgLogo" value="${SITE_CONFIG.logoIcon}"></div>
+        <div class="form-row"><div class="form-group"><label>لون أساسي 1</label><input type="color" id="cfgColor1" value="${SITE_CONFIG.logoColor1}"></div><div class="form-group"><label>لون أساسي 2</label><input type="color" id="cfgColor2" value="${SITE_CONFIG.logoColor2}"></div></div>
+        <div class="form-group"><label>عنوان الصفحة الرئيسية</label><input type="text" id="cfgHeroTitle" value="${SITE_CONFIG.heroTitle}"></div>
+        <div class="form-group"><label>وصف الصفحة الرئيسية</label><input type="text" id="cfgHeroDesc" value="${SITE_CONFIG.heroDesc}"></div>
+        <button class="btn btn-primary" onclick="saveAppearance()">💾 حفظ</button></div>`;}
+    else if(section==='settings'){c.innerHTML=`
+        <h2>⚙️ إعدادات</h2>
+        <div class="admin-card"><h3>🔐 تغيير كلمة المرور</h3><div class="input-group"><i class="fas fa-key"></i><input type="password" id="newSecret" placeholder="كلمة مرور جديدة"></div><button class="btn btn-primary" onclick="changeSecret()">حفظ</button></div>
+        <div class="admin-card"><h3>🏙️ المدن</h3><textarea id="citiesList" rows="4" style="width:100%;">${CITIES.join('\n')}</textarea><button class="btn btn-primary" onclick="saveCities()" style="margin-top:10px;">💾 حفظ المدن</button></div>
+        <div class="admin-card"><h3>💾 بيانات</h3><button class="btn btn-primary" onclick="expData()">📥 تصدير</button><button class="btn btn-primary" onclick="document.getElementById('impFile').click()" style="margin-right:10px;">📤 استيراد</button><input type="file" id="impFile" accept=".json" onchange="impData(event)" style="display:none;"></div>
+        <div class="admin-card" style="border:2px solid #DC2626;"><h3 style="color:#DC2626;">⚠️ خطر</h3><button class="btn btn-danger" onclick="resetAll()">🗑️ مسح كل شيء</button></div>`;}
 }
 
-function toggleFeatAd(id) { const a=ADS.find(x=>x.id===id); if(a){a.featured=!a.featured;save();loadAdminSection('ads');applyFilters();} }
-function delAd(id) { if(confirm('حذف؟')){ADS=ADS.filter(a=>a.id!==id);save();loadAdminSection('ads');applyFilters();toast('🗑️ تم الحذف');} }
-function exportData() { const b=new Blob([JSON.stringify(ADS)],{type:'application/json'}); const u=URL.createObjectURL(b); const a=document.createElement('a'); a.href=u; a.download='data.json'; a.click(); }
-function resetData() { if(confirm('مسح الكل؟')){ADS=[];FAVS=[];CHATS=[];save();loadAdminSection('dashboard');applyFilters();} }
+function genAdminAds(ads){return ads.map(a=>`<tr><td>${a.id}</td><td>${a.img?`<img src="${a.img}" width="40" height="40" style="border-radius:4px;object-fit:cover;">`: (CATS.find(c=>c.id===a.cid)?.icon||'📦')}</td><td><input value="${a.t}" onchange="updateAd(${a.id},'t',this.value)" style="border:1px solid #E2E8F0;border-radius:4px;padding:3px;width:120px;"></td><td>${CATS.find(c=>c.id===a.cid)?.ar||'-'}</td><td><input value="${a.c}" onchange="updateAd(${a.id},'c',this.value)" style="border:1px solid #E2E8F0;border-radius:4px;padding:3px;width:80px;"></td><td><input type="number" value="${a.p}" onchange="updateAd(${a.id},'p',parseInt(this.value))" style="border:1px solid #E2E8F0;border-radius:4px;padding:3px;width:80px;"></td><td><button class="btn-sm" style="background:#F59E0B;" onclick="toggleFe(${a.id})">${a.fe?'⭐':'☆'}</button></td><td><button class="btn-sm" style="background:#2563EB;" onclick="editAdFull(${a.id})">✏️</button><button class="btn-sm" style="background:#DC2626;" onclick="delAd(${a.id})">🗑️</button></td></tr>`).join('');}
+function filterAdminAds(){const q=document.getElementById('adminSearch')?.value?.toLowerCase()||'';const cid=parseInt(document.getElementById('adminCatFilter')?.value)||0;let f=[...ADS];if(q)f=f.filter(a=>a.t.toLowerCase().includes(q)||a.c.includes(q));if(cid)f=f.filter(a=>a.cid===cid);document.getElementById('adminAdsBody').innerHTML=genAdminAds(f);}
+function updateAd(id,key,val){const a=ADS.find(x=>x.id===id);if(a){a[key]=val;saveAll();}}
+function editAdFull(id){const a=ADS.find(x=>x.id===id);if(!a)return;const c=document.getElementById('adminMain');c.innerHTML=`<h2>✏️ تعديل إعلان #${id}</h2><div class="admin-card"><form onsubmit="saveAdEdit(event,${id})"><div class="form-row"><div class="form-group"><label>العنوان</label><input type="text" id="eadT" value="${a.t}" required></div><div class="form-group"><label>إنجليزي</label><input type="text" id="eadTE" value="${a.te||''}"></div></div><div class="form-row"><div class="form-group"><label>تصنيف</label><select id="eadCid">${CATS.map(c=>`<option value="${c.id}" ${c.id===a.cid?'selected':''}>${c.icon} ${c.ar}</option>`).join('')}</select></div><div class="form-group"><label>مدينة</label><select id="eadC">${CITIES.map(c=>`<option ${c===a.c?'selected':''}>${c}</option>`).join('')}</select></div></div><div class="form-row"><div class="form-group"><label>سعر</label><input type="number" id="eadP" value="${a.p}" required></div><div class="form-group"><label>عملة</label><select id="eadCur">${Object.keys(CURR).map(k=>`<option value="${k}" ${k===a.cur?'selected':''}>${CURR[k].s}</option>`).join('')}</select></div></div><div class="form-row"><div class="form-group"><label>هاتف</label><input type="tel" id="eadPh" value="${a.ph}"></div><div class="form-group"><label>مميز</label><select id="eadFe"><option value="1" ${a.fe?'selected':''}>نعم</option><option value="0" ${!a.fe?'selected':''}>لا</option></select></div></div><div class="form-group"><label>وصف</label><textarea id="eadD" rows="3">${a.d||''}</textarea></div><div class="form-group"><label>رابط الصورة</label><input type="text" id="eadImg" value="${a.img||''}"></div><button class="btn btn-primary" style="width:100%;">💾 حفظ</button></form></div>`;}
+function saveAdEdit(e,id){e.preventDefault();const a=ADS.find(x=>x.id===id);if(!a)return;a.t=document.getElementById('eadT').value;a.te=document.getElementById('eadTE').value;a.cid=parseInt(document.getElementById('eadCid').value);a.c=document.getElementById('eadC').value;a.p=parseInt(document.getElementById('eadP').value);a.cur=document.getElementById('eadCur').value;a.ph=document.getElementById('eadPh').value;a.fe=document.getElementById('eadFe').value==='1';a.d=document.getElementById('eadD').value;a.img=document.getElementById('eadImg').value;saveAll();loadAdmin('ads');toast('✅ تم');}
+function toggleFe(id){const a=ADS.find(x=>x.id===id);if(a){a.fe=!a.fe;saveAll();loadAdmin('ads');showPage('home');}}
+function delAd(id){if(confirm('حذف؟')){ADS=ADS.filter(a=>a.id!==id);FAVS=FAVS.filter(i=>i!==id);saveAll();loadAdmin('ads');showPage('home');}}
+function adminAddAd(e){e.preventDefault();const a={id:Date.now(),t:document.getElementById('adminAdT').value,te:document.getElementById('adminAdTE').value||'',p:parseInt(document.getElementById('adminAdP').value),cur:document.getElementById('adminAdCur').value,cid:parseInt(document.getElementById('adminAdCid').value),c:document.getElementById('adminAdC').value,ph:document.getElementById('adminAdPh').value,d:document.getElementById('adminAdD').value||'',img:document.getElementById('adminAdImg').value||'',fe:document.getElementById('adminAdFe').value==='1',v:0,ra:0,rv:[],dt:new Date().toISOString().split('T')[0]};ADS.unshift(a);saveAll();loadAdmin('ads');toast('✅ تم');}
+function updateCat(id,key,val){const c=CATS.find(x=>x.id===id);if(c){c[key]=val;saveAll();init();}}
+function delCat(id){if(confirm('حذف التصنيف؟ جميع إعلاناته ستبقى.')){CATS=CATS.filter(c=>c.id!==id);saveAll();loadAdmin('cats');init();}}
+function addCat(){const name=prompt('اسم التصنيف:');if(name){const icon=prompt('أيقونة (emoji):','📦');const en=prompt('إنجليزي:');const newId=Math.max(...CATS.map(c=>c.id),0)+1;CATS.push({id:newId,ar:name,en:en||name,icon:icon||'📦'});saveAll();loadAdmin('cats');init();}}
+function delUserAds(ph){if(confirm('حذف جميع إعلانات '+ph+'؟')){ADS=ADS.filter(a=>a.ph!==ph);saveAll();loadAdmin('users');showPage('home');}}
+function saveAppearance(){SITE_CONFIG.name=document.getElementById('cfgName').value;SITE_CONFIG.nameEn=document.getElementById('cfgNameEn').value;SITE_CONFIG.country=document.getElementById('cfgCountry').value;SITE_CONFIG.logoIcon=document.getElementById('cfgLogo').value;SITE_CONFIG.logoColor1=document.getElementById('cfgColor1').value;SITE_CONFIG.logoColor2=document.getElementById('cfgColor2').value;SITE_CONFIG.heroTitle=document.getElementById('cfgHeroTitle').value;SITE_CONFIG.heroDesc=document.getElementById('cfgHeroDesc').value;saveAll();init();toast('✅ تم حفظ المظهر');}
+function changeSecret(){const ns=document.getElementById('newSecret').value;if(ns.length<4){toast('❌ قصير');return;}SETTINGS.secret=ns;saveAll();toast('✅ تم تغيير كلمة المرور');}
+function saveCities(){CITIES=document.getElementById('citiesList').value.split('\n').filter(c=>c.trim());saveAll();toast('✅ تم حفظ المدن');}
+function expData(){const d={ads:ADS,cats:CATS,cities:CITIES,config:SITE_CONFIG,settings:SETTINGS};const b=new Blob([JSON.stringify(d)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='souq_backup.json';a.click();}
+function impData(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(ev){try{const d=JSON.parse(ev.target.result);if(d.ads)ADS=d.ads;if(d.cats)CATS=d.cats;if(d.cities)CITIES=d.cities;if(d.config)SITE_CONFIG=d.config;if(d.settings)SETTINGS=d.settings;saveAll();init();toast('✅ تم استيراد '+ADS.length+' إعلان');}catch(err){toast('❌ خطأ');}};r.readAsText(f);}
+function resetAll(){if(confirm('⚠️ مسح كل شيء؟')&&confirm('تأكيد نهائي')){ADS=[];FAVS=[];localStorage.clear();saveAll();init();closeAdmin();showPage('home');}}
 
-// ===== مساعدة =====
-function callNow(p) { window.open('tel:+967'+p); }
-function toast(msg) {
-    const t = document.createElement('div');
-    t.className='toast-message'; t.textContent=msg;
-    document.body.appendChild(t);
-    setTimeout(()=>{ t.style.opacity='0'; setTimeout(()=>t.remove(),300); },2000);
-}
-function changeCurrency() { SETTINGS.currency=document.getElementById('mainCurrency').value; save(); applyFilters(); }
-function switchLang(l) { SETTINGS.lang=l; save(); document.querySelectorAll('.lang-option').forEach(b=>b.classList.remove('active')); document.querySelector(`[onclick="switchLang('${l}')"]`).classList.add('active'); }
-
-// ===== بدء التطبيق =====
 init();
 </script>
 </body>
